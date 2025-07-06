@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omniintel Tecnologia</title>
+
+    <!-- Metadados -->
+    <meta name="description" content="OmniWebPages é uma plataforma que reúne e divulga os sites de empresas parceiras da Omniintel e clientes OmniScreen. Através deste portal, empresas que mantém contratos ativos com nossos serviços de mídia digital e desenvolvimento web ganham visibilidade adicional, criando uma rede de negócios integrada que potencializa resultados para todos os participantes.">
+    <meta name="author" content="Entony Wisniewski">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.omniintel.com.br">
+    <meta property="og:title" content="Omniintel Tecnologia">
+    <meta property="og:description" content="Soluções em tecnologia, sites, automação, manutenção e publicidade interativa. Inteligência e inovação a serviço da sua ideia.">
+    <meta property="og:image" content="logo3d.jpeg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Omniintel Tecnologia">
+    <meta name="twitter:description" content="Criação de sites, automações, check-in Wi-Fi, publicidade em telas e muito mais. Descubra o que a Omniintel pode fazer por você.">
+    <meta name="twitter:image" content="logo3d.jpeg">
+
+    <!-- Recursos -->
+    <link rel="canonical" href="https://www.omniintel.com.br/">
+    <link rel="preload" href="/fonts/custom-font.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+      .imagem-ini{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 50px 0 0px 0;
+      }
+
+      .imagem-ini img{
+        max-width: 100%;
+        height: auto;
+        border-radius: px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      }
+        .search-icon {
+  position: fixed;
+  top: 55px;
+  left: 20px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(12px);
+  animation: pulse 2s infinite;
+  transform-origin: center;
+  &:hover {
+    transform: scale(1.1) rotate(15deg);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15),
+                inset 0 2px 15px rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }}
+
+.search-wrapper {
+  position: fixed;
+  top: 55px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1001;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.search-bar {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  transform: translateY(-150%);
+  opacity: 0;
+  transition: all 0.4s ease;
+  pointer-events: auto;
+  width: 90%;
+  max-width: 500px;
+}
+
+.search-wrapper.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.search-wrapper.active .search-bar {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.search-bar input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 1rem;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.search-bar input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.search-wrapper.active + .search-icon {
+  display: none;
+}
+
+.pages-dinamio {
+  width: 100%;
+  max-width: 1400px;
+  margin: 10px auto 10px;
+  padding: 2rem;
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.titulo-page {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+  padding: 1rem;
+}
+
+.titulo-page h3 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0;
+  position: relative;
+  animation: titleFloat 3s ease-in-out infinite;
+}
+
+.titulo-page p{
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 1rem;
+  font-weight: 300;
+  line-height: 1.5;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@keyframes titleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@media (max-width: 768px) {
+  .pages-dinamio {
+    padding: 1rem;
+  }
+  
+  .titulo-page {
+    margin-bottom: 2rem;
+  }
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  max-width: 1400px;
+  margin: 20px auto;
+  position: relative;
+  z-index: 1;
+}
+
+.grid-item {
+  position: relative;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  transform-origin: center;
+  cursor: pointer;
+}
+
+.grid-item:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.grid-item.expanding {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  transform: translate(-50%, -50%) scale(1.5);
+  z-index: 9999;
+  border-radius: 0;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.grid-item:active {
+  transform: scale(0.98);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.grid-item::before {
+  content: '';
+  display: block;
+  padding-top: 56.25%;
+}
+
+.content-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: transform 0.5s ease;
+}
+
+.iframe-container {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transition: transform 0.8s ease;
+}
+
+.grid-item.expanding .iframe-container {
+  pointer-events: auto;
+  transform: scale(1.1);
+}
+
+/* ================= ICON ================= */
+.icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  margin-right: 10px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  transition: transform 0.2s ease;
+}
+
+.icon:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* ================= TITLE ================= */
+.title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* ================= DESCRIPTION ================= */
+.description {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  color: white;
+  font-size: 15px;
+  line-height: 1.4;
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.description .title-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.description .text {
+  font-size: 14px;
+  color: #f0f0f0;
+}
+
+.grid-item:hover .description {
+  transform: translateY(0);
+}
+
+.grid-item.expanding .description {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* ================= RESPONSIVIDADE ================= */
+@media (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 15px;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+
+  .description {
+    font-size: 14px;
+    padding: 15px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1023px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+@media (min-width: 1440px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  }
+}
+
+.carrossel {
+    width: 100%;
+    height: 0;
+    padding-bottom: 50%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+.carrossel img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.carrossel img.active {
+    opacity: 1;
+}
+
+    </style>
+</head>
+<body>
+    <header class="cabeca">
+        <div class="header-container">
+            <button id="abremenu" class="menubotao">☰</button>
+            <h1 class="tipage">OMNIINTEL</h1>
+        </div>
+        <div class="social-sidebar">
+            <div class="social-icon instagram-icon">
+                <a href="https://www.instagram.com/omniintel/" target="_blank">
+                    <img src="iconeinstagram.png" alt="Instagram">
+                </a>
+            </div>
+            <div class="social-icon whatsapp-icon">
+                <a href="https://wa.me/message/47X2CV2HAJPOI1" target="_blank">
+                    <img src="iconewhats.png" alt="WhatsApp">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <nav id="enimenu" class="menulat">
+        <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="indexscreen.html">OmniScreen</a></li>
+            <li><a href="indexpages.html" style="background: #cfa60079;">OmniWebPages</a></li>
+            <li><a href="indexdesigner.html">OmniDesigner</a></li>
+            <li><a href="indexcontact.html">OmniContato</a></li>
+        </ul>
+        <div class="imagemenu">
+            <img src="menuimagem.jpeg" alt="Imagem do menu">
+        </div>
+        <h6 class="direitos">Todos os direitos reservados</br> &copy; Omniintel 2025</h6>
+        <h6 style="visibility: hidden;">-</h6> <!-- Evita sobreposição do botão em mobile -->
+    </nav>
+
+<main>
+    <div class="search-icon" id="searchToggle">🔎</div>
+
+<div class="search-wrapper" id="searchWrapper">
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Pesquisar..."/>
+  </div>
+</div>
+
+<div class="imagem-ini">
+  <img src="destaquepesquisa.jpeg" alt="Logo Omniintel">
+</div>
+
+<div class="pages-dinamio">
+  <div class="titulo-page">
+    <h3>OMNIWEBPAGES</h3>
+    <p>Sua loja! Seu site! Conteúdo dinâmico sob medida para seu negócio!</p>
+    </div>
+  <div class="grid-container" id="grid-container"></div>
+</div>
+        <section class="carrossel" id="carrossel-base">
+            <img src="slide3.jpeg" alt="Slide 1" />
+            <img src="slide2.jpeg" alt="Slide 2" />
+            <img src="slide1.jpeg" alt="Slide 3" />
+        </section>
+</main>
+    <section class="rodape-empresa">
+        <h4>OMNIINTEL TECNOLOGIA LTDA</h4>
+        <p>CNPJ: 61.587.884/0001-17</p>
+        <p onclick="navigator.clipboard.writeText('5592000-5470')" style="text-decoration: underline; text-decoration-style: solid; text-decoration-color: #666; cursor: pointer;">Fone: (55) 92 000 - 5470</p>
+        <p onclick="navigator.clipboard.writeText('contato@omniintel.com.br')" style="text-decoration: underline; text-decoration-style: solid; text-decoration-color: #666; cursor: pointer;">Email: contato@omniintel.com.br</p>
+        <p>Endereço: Rua Três de Outubro, 581, Cruzeiro, Santa Rosa, RS</p>
+        <p style="visibility: hidden;">-</p>
+    </section>
+    <button class="anuncie" onclick="window.location.href='anuncie.html'">Anuncie na OmniScreen</button>
+</body>
+  <script>
+    const carrosselTopo = document.querySelectorAll('#carrossel-topo img');
+const carrosselBase = document.querySelectorAll('#carrossel-base img');
+let indexTopo = 0;
+let indexBase = 0;
+
+function mostrarImagem(imagens, index) {
+    imagens.forEach((img, i) => {
+        img.classList.remove('active');
+        if (i === index) {
+            img.classList.add('active');
+        }
+    });
+}
+
+function proximaImagemTopo() {
+    indexTopo = (indexTopo + 1) % carrosselTopo.length;
+    mostrarImagem(carrosselTopo, indexTopo);
+}
+
+function proximaImagemBase() {
+    indexBase = (indexBase + 1) % carrosselBase.length;
+    mostrarImagem(carrosselBase, indexBase);
+}
+
+// Mostra primeira imagem imediatamente em ambos carrosséis
+mostrarImagem(carrosselTopo, 0);
+mostrarImagem(carrosselBase, 0);
+
+setInterval(proximaImagemTopo, 4000); // Troca de imagem a cada 4 segundos no topo
+setInterval(proximaImagemBase, 4000); // Troca de imagem a cada 4 segundos na base    // Iniciar com a primeira imagem visível
+    // Supabase
+    const supabaseUrl = 'https://hgxuakniyncpbuvksiql.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhneHVha25peW5jcGJ1dmtzaXFsIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0ODcyNTA2MCwiZXhwIjoyMDY0MzAxMDYwfQ.PqFYkPC-87s3regeKRhfMsZi9t_at-LxQTP23RGOyEo';
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+async function carregarGrid() {
+  const container = document.getElementById('grid-container');
+  if (!container) return;
+
+  container.innerHTML = '<div style="text-align:center; padding:2rem;">Carregando...</div>';
+
+  try {
+    const { data, error } = await supabase.from('omniwebpages').select('icone, titulo, descricao, url');
+
+    if (error || !data?.length) {
+      container.innerHTML = '<div style="text-align:center; padding:2rem;">Nenhum item encontrado.</div>';
+      return;
+    }
+
+    container.innerHTML = '';
+
+    data.forEach(item => {
+      if (!item.url || !item.titulo) return;
+
+      const gridItem = document.createElement('div');
+      gridItem.className = 'grid-item';
+
+      gridItem.innerHTML = `
+        <div class="content-wrapper">
+          <iframe src="${item.url}" title="${item.titulo}" frameborder="0" class="iframe-container"></iframe>
+          <div class="description">
+            <div class="title-wrapper">
+              ${item.icone ? `<img src="${item.icone}" alt="Ícone ${item.titulo}" class="icon" />` : ''}
+              <h3 class="title">${item.titulo}</h3>
+            </div>
+            ${item.descricao ? `<p class="text">${item.descricao}</p>` : ''}
+          </div>
+        </div>
+      `;
+
+      let clickCount = 0;
+      let clickTimer = null;
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+      gridItem.addEventListener('click', () => {
+        // Em dispositivos móveis
+        if (isMobile) {
+          clickCount++;
+          
+          // Primeiro click - apenas mostra descrição
+          if (clickCount === 1) {
+            clearTimeout(clickTimer);
+            clickTimer = setTimeout(() => {
+              clickCount = 0;
+            }, 300);
+            return;
+          }
+          
+          // Segundo click - expande e redireciona
+          if (clickCount === 2) {
+            clickCount = 0;
+            clearTimeout(clickTimer);
+          }
+        }
+
+        // Previne múltiplos cliques
+        if(gridItem.classList.contains('expanding')) return;
+        
+        // Adiciona classe para expansão
+        gridItem.classList.add('expanding');
+        
+        // Calcula posição e dimensões iniciais do item
+        const rect = gridItem.getBoundingClientRect();
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        const centerX = rect.left + (rect.width / 2);
+        const centerY = rect.top + (rect.height / 2);
+        const translateX = windowWidth/2 - centerX;
+        const translateY = windowHeight/2 - centerY;
+        
+        // Define estilo inicial fixo mantendo posição original
+        gridItem.style.position = 'fixed';
+        gridItem.style.top = rect.top + 'px';
+        gridItem.style.left = rect.left + 'px';
+        gridItem.style.width = rect.width + 'px';
+        gridItem.style.height = rect.height + 'px';
+        gridItem.style.margin = '0';
+        gridItem.style.zIndex = '9999';
+        gridItem.style.transformOrigin = 'center';
+
+        // Força reflow
+        gridItem.offsetHeight;
+        
+        // Inicia animação centralizada e expansão
+        gridItem.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        gridItem.style.transform = `translate(${translateX}px, ${translateY}px) scale(${Math.max(windowWidth/rect.width, windowHeight/rect.height)})`;
+        
+        // Pré-carrega a página antes da expansão total
+        const preloadIframe = document.createElement('iframe');
+        preloadIframe.style.display = 'none';
+        preloadIframe.src = item.url;
+        document.body.appendChild(preloadIframe);        
+        // Esconde descrição
+        const description = gridItem.querySelector('.description');
+        description.style.opacity = '0';
+        
+        // Ajusta iframe
+        const iframe = gridItem.querySelector('.iframe-container');
+        iframe.style.transform = 'scale(1.1)';
+        
+        // Redireciona após animação
+        setTimeout(() => {
+          window.location.href = item.url;
+        }, 300);
+      });
+
+      container.appendChild(gridItem);
+    });
+  } catch (err) {
+    console.error('Erro ao carregar grid:', err);
+    container.innerHTML = '<div style="text-align:center; padding:2rem;">Erro ao carregar os itens.</div>';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  carregarGrid();
+
+  document.getElementById('searchInput')?.addEventListener('input', e => {
+    const termo = e.target.value.toLowerCase().trim();
+    document.querySelectorAll('.grid-item').forEach(item => {
+      const titulo = item.querySelector('.title')?.textContent.toLowerCase() || '';
+      const descricao = item.querySelector('.text')?.textContent.toLowerCase() || '';
+      const iframe = item.querySelector('iframe')?.src.toLowerCase() || '';
+      item.style.display = (titulo.includes(termo) || descricao.includes(termo) || iframe.includes(termo)) ? 'block' : 'none';
+    });
+  });
+});
+
+// Adiciona evento de click no ícone de pesquisa
+searchToggle.addEventListener('click', (e) => {
+  e.stopPropagation();
+  searchWrapper.classList.toggle('active');
+  if (searchWrapper.classList.contains('active')) {
+    searchInput.focus();
+  }
+});
+
+// Fecha a barra de pesquisa ao clicar fora
+document.addEventListener('click', (e) => {
+  if (!searchWrapper.contains(e.target) && !searchToggle.contains(e.target)) {
+    searchWrapper.classList.remove('active');
+  }
+});
+   </script>
+</html>

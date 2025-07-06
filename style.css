@@ -1,0 +1,505 @@
+:root {
+    --azul-marinho: #051029;
+    --branco: #ffffff;
+    --preto: #000000;
+    --amarelo-escuro: #cfa600;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background-image: url('backgrouddesktop.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: var(--azul-marinho);
+    background-attachment: fixed;
+    color: var(--branco);
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: inherit;
+    background-size: inherit;
+    background-position: inherit;
+    background-repeat: inherit;
+    background-attachment: inherit;
+    animation: blurAndFade 3s forwards;
+    z-index: -5;
+}
+
+@keyframes blurAndFade {
+    0% {
+        filter: blur(0);
+        background-image: inherit;
+    }
+    99% {
+        filter: blur(100px);
+        background-image: inherit;
+    }
+    100% {
+        filter: blur(100px);
+        background-image: none;
+        background-color: var(--azul-marinho);
+    }
+}
+
+.cabeca {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(to right, var(--azul-marinho), rgba(0, 0, 0, 0.884));
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    z-index: 1002;
+    box-shadow: 0 4px 30px rgba(2, 0, 29, 0.877);
+    border-bottom: 1px solid rgb(255, 255, 255);
+}
+
+.homepage {
+    width: 100%;
+    margin-top: 30px;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.header-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menubotao {
+    background: none;
+    border: 2px solid transparent;
+    color: var(--branco);
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.menubotao:hover {
+    color: var(--amarelo-escuro);
+    border-color: var(--amarelo-escuro);
+    transform: rotate(180deg);
+}
+
+.tipage {
+    text-align: center;
+    font-size: 2.2rem;
+    flex-grow: 1;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(45deg, var(--branco), var(--amarelo-escuro));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.social-sidebar {
+    position: fixed;
+    right: 20px;
+    top: 15px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    z-index: 1003;
+}
+
+.social-icon {
+    width: 30px;
+    height: 30px;
+    background-color: var(--branco);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+    animation: float 2s ease-in-out infinite;
+}
+
+.social-icon:hover {
+    animation: glow 1s ease-in-out infinite alternate;
+    cursor: pointer;
+    filter: brightness(1.5) drop-shadow(0 0 8px var(--amarelo-escuro));
+}
+
+.social-icon:active {
+    animation: click-glow 0.3s ease-out;
+}
+
+.social-icon img {
+    width: 35px;
+    height: 35px;
+}
+
+.social-icon img:hover {
+    transform: translateY(-5px) rotate(8deg);
+    filter: brightness(1.5) drop-shadow(0 0 8px var(--amarelo-escuro));
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 5px #fff,
+                    0 0 10px #fff,
+                    0 0 15px var(--amarelo-escuro),
+                    0 0 20px var(--amarelo-escuro);
+    }
+    100% {
+        box-shadow: 0 0 10px #fff,
+                    0 0 20px #fff,
+                    0 0 30px var(--amarelo-escuro),
+                    0 0 40px var(--amarelo-escuro);
+    }
+}
+
+@keyframes click-glow {
+    0% {
+        box-shadow: 0 0 30px var(--amarelo-escuro);
+    }
+    100% {
+        box-shadow: 0 0 5px var(--amarelo-escuro);
+    }
+}
+
+.menulat {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    width: 280px;
+    height: calc(100vh - 60px);
+    background: rgba(10, 15, 26, 0.95);
+    padding: 2rem 1.5rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1003;
+    backdrop-filter: blur(10px);
+    box-shadow: 5px 0 25px rgba(0, 0, 0, 0.2);
+    touch-action: pan-x pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+    will-change: transform;
+}
+
+.menulat-open {
+    transform: translateX(0);
+}
+
+.menulat.ativo {
+    transform: translateX(0);
+    box-shadow: 5px 0 30px rgba(0, 0, 0, 0.3);
+}
+
+.menulat.deslizando {
+    transition: transform 0.1s linear;
+    touch-action: pan-x;
+}
+
+.menulat ul {
+    list-style: none;
+    margin-bottom: 0rem;
+    padding: 0.5rem;
+}
+
+.menulat li {
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.8rem 0;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.menulat li:hover {
+    transform: translateX(10px);
+    border-bottom-color: var(--amarelo-escuro);
+}
+
+.menulat a {
+    color: var(--branco);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    display: block;
+    padding: 0.5rem;
+    border-radius: 8px;
+    background: linear-gradient(to right, transparent 50%, rgba(207, 166, 0, 0.1) 50%);
+    background-size: 200% 100%;
+    background-position: left bottom;
+}
+
+.menulat a:hover {
+    color: var(--amarelo-escuro);
+    background-position: right bottom;
+    text-shadow: 0 0 10px rgba(207, 166, 0, 0.5);
+}
+
+.imagemenu img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+    filter: brightness(0.9);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.imagemenu img:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+.direitos {
+    width: 100%;
+    text-align: center;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 1rem;
+    margin-top: 1rem;
+    background: linear-gradient(to top, rgba(10, 15, 26, 0.4), transparent);
+    backdrop-filter: blur(2px);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1001;}
+
+.rodape-empresa {
+    width: 100%;
+    background: rgba(5, 10, 20, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 2px solid rgba(255, 255, 255, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    gap: 1.5rem;
+    margin-top: auto;
+}
+
+.rodape-empresa h4 {
+    color: var(--amarelo-escuro);
+    font-size: 1.4rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.rodape-conteudo {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.coluna-rodape {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.coluna-rodape p {
+    color: var(--branco);
+    font-size: 0.95rem;
+    opacity: 0.8;
+    transition: 0.3s;
+}
+
+.coluna-rodape p:hover {
+    opacity: 1;
+    color: var(--amarelo-escuro);
+}
+
+.anuncie {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, var(--amarelo-escuro), #b79400);
+    color: var(--preto);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1003;
+    border-radius: 25px;
+    box-shadow: 0 4px 15px rgba(207, 166, 0, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    backdrop-filter: blur(5px);
+    animation: float-button 3s ease-in-out infinite;
+}
+
+.anuncie:hover {
+    background: linear-gradient(135deg, #b79400, var(--amarelo-escuro));
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(207, 166, 0, 0.5);
+    animation: glow-button 1s ease-in-out infinite alternate;
+}
+
+@keyframes float-button {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes glow-button {
+    0% {
+        box-shadow: 0 0 5px var(--amarelo-escuro),
+                    0 0 10px var(--amarelo-escuro),
+                    0 0 15px var(--amarelo-escuro);
+    }
+    100% {
+        box-shadow: 0 0 10px var(--amarelo-escuro),
+                    0 0 20px var(--amarelo-escuro),
+                    0 0 30px var(--amarelo-escuro);
+    }
+}
+
+@media (max-width: 768px) {
+    .tipage {
+        font-size: 1.7rem;
+    }
+
+    .menubotao {
+        font-size: 1.6rem;
+    }
+
+    .social-icon {
+        width: 25px;
+        height: 25px;
+    }
+
+    .social-icon img {
+        width: 28px;
+        height: 28px;
+    }
+
+    .menulat {
+        width: 240px;
+    }
+
+    .menulat a {
+        font-size: 1rem;
+    }
+
+    .direitos {
+        height: 90px;
+        padding-top: 20px;
+        bottom: 10px;
+    }
+
+    .rodape-empresa p {
+        width: 90%;
+    }
+
+    .anuncie {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+        bottom: 15px;
+        right: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tipage {
+        font-size: 1.5rem;
+    }
+
+    .menubotao {
+        font-size: 1.4rem;
+    }
+
+    .social-sidebar {
+        right: 10px;
+        gap: 10px;
+    }
+
+    .social-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .social-icon img {
+        width: 25px;
+        height: 25px;
+    }
+
+    .menulat {
+        width: 200px;
+    }
+
+    .menulat a {
+        font-size: 0.95rem;
+    }
+
+        .direitos {
+        height: 90px;
+        padding-top: 20px;
+        bottom: 10px;
+    }
+
+    .rodape-empresa h4 {
+        font-size: 1rem;
+    }
+
+    .rodape-empresa p {
+        font-size: 0.8rem;
+        width: 95%;
+    }
+
+    .anuncie {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+        bottom: 10px;
+        right: 10px;
+    }
+}
