@@ -1,0 +1,650 @@
+=<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omniintel Tecnologia</title>
+
+    <!-- Metadados -->
+    <meta name="description" content="A Omniintel é uma empresa criativa de tecnologia que desenvolve sites personalizados, projetos audiovisuais interativos, campanhas publicitárias e manutenção especializada em computadores e MacBooks. Inovação com estilo.">
+    <meta name="keywords" content="Omniintel, tecnologia criativa, sites personalizados, manutenção MacBook, Wi-Fi com check-in, publicidade em telas, OmniScreen, design 3D, marketing digital, UTI dos Micros, publicidade inteligente">
+    <meta name="author" content="Entony Wisniewski">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.omniintel.com.br">
+    <meta property="og:title" content="Omniintel Tecnologia">
+    <meta property="og:description" content="Soluções em tecnologia, sites, automação, manutenção e publicidade interativa. Inteligência e inovação a serviço da sua ideia.">
+    <meta property="og:image" content="logo3d.jpeg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Omniintel Tecnologia">
+    <meta name="twitter:description" content="Criação de sites, automações, check-in Wi-Fi, publicidade em telas e muito mais. Descubra o que a Omniintel pode fazer por você.">
+    <meta name="twitter:image" content="logo3d.jpeg">
+
+    <!-- Recursos -->
+    <link rel="canonical" href="https://www.omniintel.com.br/">
+    <link rel="preload" href="/fonts/custom-font.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="style.css">    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+    <style>
+.carrossel {
+    width: 100%;
+    height: 0;
+    padding-bottom: 50%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+.carrossel img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.carrossel img.active {
+    opacity: 1;
+}
+
+/* Container Geral */
+.conteudo-dinamico {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+/* === LATERAL DIREITA COM 3 CAIXAS === */
+.lateral-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    flex: 1;
+    max-width: 20%;
+    perspective: 1000px;
+}
+
+.box-lateral {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+    transform-style: preserve-3d;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% {
+        transform: translateZ(0) scale(1);
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+    }
+    50% {
+        transform: translateZ(20px) scale(1.02);
+        box-shadow: 0 12px 48px rgba(31, 38, 135, 0.25);
+    }
+    100% {
+        transform: translateZ(0) scale(1);
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+    }
+}
+
+.box-lateral:hover {
+    transform: translateZ(30px) scale(1.05) rotateY(10deg);
+    box-shadow: 0 15px 35px rgba(31, 38, 135, 0.35);
+}
+
+.box-lateral img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.box-lateral:hover img {
+    transform: translateZ(20px) scale(1.1);
+}
+
+/* === CONTEÚDO PRINCIPAL === */
+.principal-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    flex: 3;
+    align-items: stretch;
+    max-width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+/* Texto com efeito vidro espelhado */
+.texto-container {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    transition: transform 0.4s, box-shadow 0.4s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.texto-container:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
+}
+
+.texto-container h2 {
+    color: var(--amarelo-escuro);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.texto-container p {
+    width: 100%;
+    color: var(--branco);
+}
+
+/* Vídeo principal */
+.video-container {
+    flex: 1 1 100%;
+    border-radius: 50px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.video-container video {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: fill;
+    display: block;
+    min-width: 100%;
+}
+
+/* === RESPONSIVIDADE === */
+@media (max-width: 1024px) {
+    .lateral-container {
+        display: none;
+    }
+
+    .principal-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .texto-container {
+        width: 100%;
+        max-width: 800px;
+        text-align: center;
+    }
+
+    .video-container {
+        width: 100%;
+        max-width: 800px;
+    }
+}
+
+.parceiros {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    position: relative;
+    text-align: center;
+}
+
+.parceiros h3 {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    margin: 0;
+    padding-top: 2rem;
+    color: var(--amarelo-escuro);
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.containerpart {
+    background: linear-gradient(165deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    padding: 2rem;
+    flex: 1;
+    width: 33.33%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    transition: transform 0.4s ease;
+    margin-top: 4rem;
+}
+
+.containerpart:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+
+@media screen and (max-width: 768px) {
+    .containerpart {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+}
+
+.apoio-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.apoio-item img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.apoio-item h4 {
+    color: var(--branco);
+    font-size: 1.4rem;
+    margin: 0;
+    text-align: center;
+}
+
+.apoio-item p {
+    color: var(--branco);
+    font-size: 1rem;
+    text-align: center;
+    line-height: 1.4;
+    margin: 0;
+    opacity: 0.8;
+}
+
+@media (min-width: 1024px) {
+    .parceiros {
+        flex-wrap: nowrap;
+        gap: 3rem;
+    }
+
+    .containerpart {
+        max-width: 350px;
+    }
+}
+
+.base {
+  width: 100%;
+  padding: 3rem 2rem;
+  background: linear-gradient(to bottom, var(--azul-escuro), #0d1a36);
+  color: var(--branco);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.container-base {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.texto-wrapper {
+  flex: 1 1 500px;
+  background: var(--cinza-transp);
+  border-left: 4px solid var(--amarelo);
+  padding: 2rem;
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.texto-wrapper:hover {
+  transform: translateY(-5px);
+}
+
+.texto-wrapper h4 {
+  font-size: 2rem;
+  color: var(--amarelo);
+  margin-bottom: 1rem;
+}
+
+.texto-wrapper .intro {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.imagem-wrapper {
+  flex: 1 1 500px;
+  text-align: center;
+}
+
+.imagem-wrapper img {
+  max-width: 100%;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  transition: transform 0.4s ease;
+}
+
+.imagem-wrapper img:hover {
+  transform: scale(1.03);
+}
+
+.segmento {
+  max-width: 1200px;
+  margin: 2rem auto 0;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+.segmento p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--branco);
+  opacity: 0.9;
+}
+
+/* === Responsivo === */
+@media (max-width: 1024px) {
+  .container-base {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .texto-wrapper {
+    flex: 1 1 50%;
+  }
+
+  .imagem-wrapper {
+    flex: 1 1 50%;
+  }
+
+  .segmento {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container-base {
+    flex-direction: column;
+  }
+
+  .texto-wrapper,
+  .imagem-wrapper {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+
+  .texto-wrapper {
+    padding: 1.5rem;
+  }
+
+  .segmento {
+    padding: 1.5rem;
+  }
+}
+
+</style>
+</head>
+<body>
+    <header class="cabeca">
+        <div class="header-container">
+            <button id="abremenu" class="menubotao">☰</button>
+            <h1 class="tipage">OMNIINTEL</h1>
+        </div>
+        <div class="social-sidebar">
+            <div class="social-icon instagram-icon">
+                <a href="https://www.instagram.com/omniintel/" target="_blank">
+                    <img src="iconeinstagram.png" alt="Instagram">
+                </a>
+            </div>
+            <div class="social-icon whatsapp-icon">
+                <a href="https://wa.me/message/47X2CV2HAJPOI1" target="_blank">
+                    <img src="iconewhats.png" alt="WhatsApp">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <nav id="enimenu" class="menulat">
+        <ul>
+            <li><a href="index.html" style="background: #cfa60079;">Início</a></li>
+            <li><a href="indexscreen.html">OmniScreen</a></li>
+            <li><a href="indexpages.html">OmniWebPages</a></li>
+            <li><a href="indexdesigner.html">OmniDesigner</a></li>
+            <li><a href="indexcontact.html">OmniContato</a></li>
+        </ul>
+        <div class="imagemenu">
+            <img src="menuimagem.jpeg" alt="Imagem do menu">
+        </div>
+        <h6 class="direitos">Todos os direitos reservados</br> &copy; Omniintel 2025</h6>
+        <h6 style="visibility: hidden;">-</h6> <!-- Evita sobreposição do botão em mobile -->
+    </nav>
+ <main class="homepage animar-conteudo" id="containerprin">
+
+        <!-- Carrossel Topo -->
+        <section class="carrossel" id="carrossel-topo">
+            <img src="slide1.jpeg" alt="Slide 1" />
+            <img src="slide2.jpeg" alt="Slide 2" />
+            <img src="slide3.jpeg" alt="Slide 3" />
+        </section>
+
+        <section class="conteudo-dinamico">
+<div class="lateral-container" id="lateral-dinamica">
+    <div class="box-lateral">
+    <a href="https://www.instagram.com/nobre_arte.sr/" target="_blank">
+        <img src="anuncionobrearte.jpeg" alt="Imagem lateral" style="width: 100%; height: 100%; object-fit: cover;">
+    </a>
+    </div>
+</div>
+
+    <div class="principal-container">
+        <div class="texto-container">
+            <h2>Inovação e Tecnologia</h2>
+<p>"<b>A melhor forma de prever o futuro é criá-lo</b>." - <a href="https://pt.wikipedia.org/wiki/Peter_Drucker" target="_blank" style="color: white;"><i>Peter Drucker</i></a></p>
+            <video src="videoini.mp4" autoplay loop muted controlsList="nodownload nofullscreen noremoteplayback noplaybackrate" disablePictureInPicture></video>        
+        </div>
+    </div>
+</section>
+
+<section class="parceiros">
+    <h3 style="margin-bottom: 1rem;">APOIO</h3>
+            <div class="containerpart">
+                <div class="apoio-item">
+                    <a href="https://www.instagram.com/utidosmicros?igsh=Nm9hZnVqamh5OXVp"><img src="utidosmicros.jpeg" alt="Parceiro 1" /></a>
+                    <h4>UTI DOS MICROS</h4>
+                    <p>Assistencia tecnica especializada em notebooks.</p>
+                </div>
+            </div>
+                        <div class="containerpart">
+                <div class="apoio-item">
+                    <a href="https://wa.me/5555999669942?text=Boa%20tarde%20gostaria%20de%20saber%20mais%20sobre%20os%20planos%20de%20voc%C3%AAs!%20"><img src="arrobanet.jpeg" alt="Parceiro 1" /></a>
+                    <h4>ARROBA NET</h4>
+                    <p>Provedora de internet para redes wifi e 5G.</p>
+                </div>
+            </div>
+                        <div class="containerpart">
+                <div class="apoio-item">
+                    <a href="https://www.instagram.com/_cyberjohn?igsh=OTFpbG41dWN4NDB4"><img src="cyber.jpeg" alt="Parceiro 1" /></a>
+                    <h4>CYBERMIND SOLUTIONS</h4>
+                    <p>Especialistas em automação e inteligência artificial para empresas inovadoras.</p>
+                </div>
+            </div>
+            </section>
+
+        <section class="carrossel" id="carrossel-base">
+            <img src="slide3.jpeg" alt="Slide 1" />
+            <img src="slide2.jpeg" alt="Slide 2" />
+            <img src="slide1.jpeg" alt="Slide 3" />
+        </section>
+
+<section class="base">
+  <div class="container-base">
+    <div class="texto-wrapper">
+      <h4>Tecnologia que inspira. Soluções que conectam.</h4>
+      <p class="intro">
+A Omniintel nasceu com um propósito claro: transformar ideias em experiências tecnológicas reais, criativas e acessíveis. Unindo inovação, design e inteligência prática, oferecemos soluções que vão além do esperado. Seja na criação de campanhas impactantes, no desenvolvimento de plataformas interativas, ou na manutenção precisa de equipamentos de alto desempenho. A inspiração está em cada projeto, porque acreditamos que tecnologia boa é aquela que emociona, resolve e aproxima.
+      </p>
+    </div>
+    <div class="imagem-wrapper">
+      <img src="backgrouddesktop.jpeg" alt="Imagem representativa" />
+    </div>
+  </div>
+  <div class="segmento">
+    <p>
+Nossa atuação é multifacetada e estratégica. Trabalhamos com desenvolvimento de sites personalizados, produção visual criativa, campanhas publicitárias ousadas, automação de atendimento, sistemas interativos para espaços públicos, além de assistência técnica especializada em placas lógicas e equipamentos de alto desempenho. Cada serviço é pensado para gerar impacto, valor e crescimento, tanto para empresas quanto para pessoas que querem fazer mais com tecnologia.
+
+A Omniintel não é só uma empresa, é um laboratório de ideias. Com olhar atento às tendências e aos desafios do mundo moderno, estamos sempre conectados ao que há de mais relevante e funcional. E o melhor: entregamos com agilidade, eficiência e um toque de originalidade que só quem vive tecnologia como arte consegue oferecer. Porque para nós, a conexão começa com propósito e se completa com resultado.
+    </p>
+  </div>
+</section>
+
+
+   
+</main>
+    <section class="rodape-empresa">
+        <h4>OMNIINTEL TECNOLOGIA LTDA</h4>
+        <p>CNPJ: 61.587.884/0001-17</p>
+        <p onclick="navigator.clipboard.writeText('5592000-5470')" style="text-decoration: underline; text-decoration-style: solid; text-decoration-color: #666; cursor: pointer;">Fone: (55) 92 000 - 5470</p>
+        <p onclick="navigator.clipboard.writeText('contato@omniintel.com.br')" style="text-decoration: underline; text-decoration-style: solid; text-decoration-color: #666; cursor: pointer;">Email: contato@omniintel.com.br</p>
+        <p>Endereço: Rua Três de Outubro, 581, Cruzeiro, Santa Rosa, RS</p>
+        <p style="visibility: hidden;">-</p>
+    </section>
+     <button class="anuncie" onclick="window.location.href='anuncie.html'">Anuncie na OmniScreen</button>
+</body>
+<script>
+const carrosselTopo = document.querySelectorAll('#carrossel-topo img');
+const carrosselBase = document.querySelectorAll('#carrossel-base img');
+let indexTopo = 0;
+let indexBase = 0;
+
+function mostrarImagem(imagens, index) {
+    imagens.forEach((img, i) => {
+        img.classList.remove('active');
+        if (i === index) {
+            img.classList.add('active');
+        }
+    });
+}
+
+function proximaImagemTopo() {
+    indexTopo = (indexTopo + 1) % carrosselTopo.length;
+    mostrarImagem(carrosselTopo, indexTopo);
+}
+
+function proximaImagemBase() {
+    indexBase = (indexBase + 1) % carrosselBase.length;
+    mostrarImagem(carrosselBase, indexBase);
+}
+
+// Mostra primeira imagem imediatamente em ambos carrosséis
+mostrarImagem(carrosselTopo, 0);
+mostrarImagem(carrosselBase, 0);
+
+setInterval(proximaImagemTopo, 4000); // Troca de imagem a cada 4 segundos no topo
+setInterval(proximaImagemBase, 4000); // Troca de imagem a cada 4 segundos na base    // Iniciar com a primeira imagem visível
+const SUPABASE_URL = 'https://hgxuakniyncpbuvksiql.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhneHVha25peW5jcGJ1dmtzaXFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg3MjUwNjAsImV4cCI6MjA2NDMwMTA2MH0.QGeTGjtHxWm6CcPxEWNoVLeE2b73qjo1LhiGsuVSv_o';
+
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+async function carregarDestaques() {
+    if (window.innerWidth <= 1024) {
+        console.log('Não carregar destaques, tela menor que desktop.');
+        return;
+    }
+
+    try {
+        const { data, error } = await supabase
+            .from('destaques')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        const container = document.getElementById('lateral-dinamica');
+        container.innerHTML = '';
+
+        for (const item of data) {
+            const box = document.createElement('div');
+            box.classList.add('box-lateral');
+
+            const { data: urlData, error: urlError } = supabase
+                .storage
+                .from('imagens')
+                .getPublicUrl(item.link);
+
+            if (urlError) {
+                console.warn('Erro ao obter URL da imagem:', urlError);
+                continue;
+            }
+
+            const url = urlData.publicUrl;
+
+            if (item.tipo === 'imagem') {
+                const img = document.createElement('img');
+                img.src = url;
+                img.alt = 'Imagem destaque';
+                box.appendChild(img);
+            } else if (item.tipo === 'video') {
+                const video = document.createElement('video');
+                video.src = url;
+                video.autoplay = true;
+                video.loop = true;
+                video.muted = true;
+                video.playsInline = true;
+                box.appendChild(video);
+            } else {
+                console.warn('Tipo desconhecido:', item.tipo);
+            }
+
+            container.appendChild(box);
+        }
+    } catch (err) {
+        console.error('Erro ao carregar destaques:', err);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', carregarDestaques);
+
+</script>
+</html>
