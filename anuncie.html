@@ -1,0 +1,349 @@
+=<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omniintel Tecnologia</title>
+
+    <!-- Metadados -->
+    <meta name="description" content="A Omniintel é uma empresa criativa de tecnologia que desenvolve sites personalizados, projetos audiovisuais interativos, campanhas publicitárias e manutenção especializada em computadores e MacBooks. Inovação com estilo.">
+    <meta name="keywords" content="Omniintel, tecnologia criativa, sites personalizados, manutenção MacBook, Wi-Fi com check-in, publicidade em telas, OmniScreen, design 3D, marketing digital, UTI dos Micros, publicidade inteligente">
+    <meta name="author" content="Entony Wisniewski">
+    <!-- WhatsApp Preview Image -->
+    <meta property="og:image:whatsapp" content="logo3d.jpeg">        
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.omniintel.com.br">
+    <meta property="og:title" content="Omniintel Tecnologia">
+    <meta property="og:description" content="Soluções em tecnologia, sites, automação, manutenção e publicidade interativa. Inteligência e inovação a serviço da sua ideia.">
+    <meta property="og:image" content="logo3d.jpeg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Omniintel Tecnologia">
+    <meta name="twitter:description" content="Criação de sites, automações, check-in Wi-Fi, publicidade em telas e muito mais. Descubra o que a Omniintel pode fazer por você.">
+    <meta name="twitter:image" content="logo3d.jpeg">
+
+    <!-- Recursos -->
+    <link rel="canonical" href="https://www.omniintel.com.br/">
+    <link rel="preload" href="/fonts/custom-font.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="style.css">    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+<style>
+  .formulario-omniscreen {
+    max-width: 900px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background: #0329a5a2;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    border-radius: 16px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .formulario label,
+  .formulario select,
+  .formulario input,
+  .formulario textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  .formulario input,
+  .formulario select,
+  .formulario textarea {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  .formulario button {
+    background: #202020;
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .formulario button:hover {
+    background: #444;
+  }
+</style>
+</head>
+<body>
+        <header class="cabeca">
+        <div class="header-container">
+            <button id="abremenu" class="menubotao">☰</button>
+            <h1 class="tipage">OMNIINTEL</h1>
+        </div>
+        <div class="social-sidebar">
+            <div class="social-icon instagram-icon">
+                <a href="https://www.instagram.com/omniintel/" target="_blank">
+                    <img src="iconeinstagram.png" alt="Instagram">
+                </a>
+            </div>
+            <div class="social-icon whatsapp-icon">
+                <a href="https://wa.me/message/47X2CV2HAJPOI1" target="_blank">
+                    <img src="iconewhats.png" alt="WhatsApp">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <nav id="enimenu" class="menulat">
+        <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="indexscreen.html">OmniScreen</a></li>
+            <li><a href="indexpages.html">OmniWebPages</a></li>
+            <li><a href="indexdesigner.html">OmniDesigner</a></li>
+            <li><a href="indexcontact.html">OmniContato</a></li>
+        </ul>
+        <div class="imagemenu">
+            <img src="menuimagem.jpeg" alt="Imagem do menu">
+        </div>
+        <h6 class="direitos">Todos os direitos reservados</br> &copy; Omniintel 2025</h6>
+        <h6 style="visibility: hidden;">-</h6> <!-- Evita sobreposição do botão em mobile -->
+    </nav>
+ <main class="homepage animar-conteudo" id="containerprin">
+  <section class="formulario-omniscreen">
+    <h2>Formulário de Solicitação de Anúncio</h2>
+     <form id="formularioOmni" class="formulario">
+      <fieldset>
+        <legend>Informações Pessoais</legend>
+        <label>Nome:<input type="text" name="nome" required></label>
+        <label>Contato:<input type="text" name="contato" required></label>
+        <label>WhatsApp:<input type="text" name="whatsapp" required></label>
+        <label>Email:<input type="email" name="email" required></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Informações do Anúncio</legend>
+        <label>Nome da Empresa:<input type="text" name="empresa" required></label>
+        <label>Produto ou Serviço Anunciado:<input type="text" name="produto" required></label>
+
+        <label>Categoria:
+          <select name="categoria" required>
+            <option>Moda e Vestuário</option>
+            <option>Eletrônicos</option>
+            <option>Alimentos e Bebidas</option>
+            <option>Cosméticos e Cuidados Pessoais</option>
+            <option>Móveis e Decoração</option>
+            <option>Bricolagem e Ferragens</option>
+            <option>Livros e Papelaria</option>
+            <option>Brinquedos e Hobbies</option>
+            <option>Esportes e Lazer</option>
+            <option>Consultoria</option>
+            <option>Educação</option>
+            <option>Saúde e Bem Estar</option>
+            <option>Finanças</option>
+            <option>Transporte e Logística</option>
+            <option>Tecnologia</option>
+            <option>Entretenimento</option>
+            <option>Turismo e Viagens</option>
+            <option>Serviços Domésticos</option>
+          </select>
+        </label>
+
+        <label>Objetivo do Anúncio:
+          <select name="objetivo" required>
+            <option>Divulgação de Marca</option>
+            <option>Promoção de Produtos</option>
+            <option>Aumento de Vendas</option>
+            <option>Informativo</option>
+          </select>
+        </label>
+
+        <label>Direcionar para alguma ação:
+          <select name="acao" id="acao-select" required>
+            <option>Acesse o site</option>
+            <option>Visite a loja física</option>
+            <option>Contato por WhatsApp</option>
+            <option value="outro">Outro</option>
+          </select>
+        </label>
+        <div id="campo-outro-acao" style="display:none">
+          <input type="text" name="acao_outro" placeholder="Descreva a ação personalizada">
+        </div>
+
+        <label>Limitação Geográfica:
+          <select name="geo" id="limite-geo" required>
+            <option>Não</option>
+            <option value="sim">Sim</option>
+          </select>
+        </label>
+        <div id="campo-localizacao" style="display:none">
+          <input type="text" name="localizacao" placeholder="Informe a localização">
+        </div>
+
+        <label>Restrição de Horário:
+          <select name="horario" id="restricao-horario" required>
+            <option>Não</option>
+            <option value="sim">Sim</option>
+          </select>
+        </label>
+        <div id="campo-horario" style="display:none">
+          <input type="text" name="horario_limite" placeholder="Informe o horário">
+        </div>
+
+        <label>Faixa Etária:<input type="text" name="faixa_etaria" placeholder="Ex: de 18 a 40 anos"></label>
+
+        <label>Estilo de Vida:<select name="estilo_vida">
+          <option>Estudantes</option>
+          <option>Jovens Adultos</option>
+          <option>Trabalhadores</option>
+          <option>Pais de Família</option>
+          <option>Executivos</option>
+          <option>Aposentados</option>
+        </select></label>
+
+        <label>Tipo de Comunicação:
+          <select name="tipo_comunicacao">
+            <option>Informativa</option>
+            <option>Emocional</option>
+            <option>Humorística</option>
+            <option>Direta e Objetiva</option>
+            <option>Inspiradora</option>
+          </select>
+        </label>
+
+        <label>Interesses Principais:
+          <select name="interesses" id="interesse-select">
+            <option>Tecnologia</option>
+            <option>Saúde</option>
+            <option>Educação</option>
+            <option>Moda</option>
+            <option>Esportes</option>
+            <option>Gastronomia</option>
+            <option>Turismo</option>
+            <option>Finanças</option>
+            <option value="outros">Outros</option>
+          </select>
+        </label>
+        <div id="campo-outros-interesses" style="display:none">
+          <input type="text" name="interesses_outros" placeholder="Descreva os interesses">
+        </div>
+
+        <label>Preferência de Conteúdo Visual:
+          <select name="visual">
+            <option>Vídeo</option>
+            <option>Imagem Estática</option>
+            <option>Slides de Texto</option>
+            <option>Animações Curtas</option>
+          </select>
+        </label>
+
+        <label>Local Preferido para Exibição:
+          <select name="local">
+            <option>Shopping</option>
+            <option>Academia</option>
+            <option>Hospitais</option>
+            <option>Universidades</option>
+            <option>Transporte Público</option>
+            <option>Áreas Comerciais</option>
+            <option>Praças/Ambientes Públicos</option>
+          </select>
+        </label>
+
+        <label>Já possui material visual?
+          <select name="material_visual">
+            <option>Sim</option>
+            <option>Não</option>
+          </select>
+        </label>
+
+        <label>Precisa de apoio para criação?
+          <select name="apoio_visual">
+            <option>Sim</option>
+            <option>Não</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <label>Sobre o OmniScreen:
+        <textarea name="descricao" rows="6" readonly>
+O OmniScreen transforma telas comuns em portais interativos que conectam pessoas e marcas em tempo real, com tecnologia acessível e inovação gradual. Seu objetivo é modernizar a publicidade com impacto visual, simplicidade e alto potencial de expansão.
+        </textarea>
+      </label>
+
+      <label>
+        <input type="checkbox" required>
+        Declaro que li e aceito os termos com base no projeto OmniScreen e suas diretrizes descritas acima.
+      </label>
+
+      <button type="submit">Enviar Formulário</button>
+        </form>
+  </section>
+
+    <section id="resultadoOmni" style="display: none;">
+    <h3>OmniScreens recomendados</h3>
+    <p>Escolha os OmniScreens desejados clicando no botão ao lado de cada um.</p>
+    <div id="listaOmnis"></div>
+    <button id="finalizarEscolha" style="display:none">Encerrar</button>
+  </section>
+</main>
+    <section class="rodape-empresa">
+        <h4>OMNIINTEL TECNOLOGIA LTDA</h4>
+        <p>CNPJ: 61.587.884/0001-17</p>
+        <p onclick="navigator.clipboard.writeText('5592000-5470')" style="text-decoration: underline; text-decoration-style: solid; text-decoration-color: #666; cursor: pointer;">Fone: (55) 92 000 - 5470</p>
+        <p onclick="navigator.clipboard.writeText('contato@omniintel.com.br')" style="text-decoration: underline; text-decoration-style: solid; text-decoration-color: #666; cursor: pointer;">Email: contato@omniintel.com.br</p>
+        <p>Endereço: Rua Três de Outubro, 581, Cruzeiro, Santa Rosa, RS</p>
+        <p style="visibility: hidden;">-</p>
+    </section>
+</body>
+<script>
+ // Exibe/oculta campos condicionais
+    document.getElementById('acao-select').addEventListener('change', e => {
+      document.getElementById('campo-outro-acao').style.display = e.target.value === 'outro' ? 'block' : 'none';
+    });
+    document.getElementById('limite-geo').addEventListener('change', e => {
+      document.getElementById('campo-localizacao').style.display = e.target.value === 'sim' ? 'block' : 'none';
+    });
+    document.getElementById('restricao-horario').addEventListener('change', e => {
+      document.getElementById('campo-horario').style.display = e.target.value === 'sim' ? 'block' : 'none';
+    });
+    document.getElementById('interesse-select').addEventListener('change', e => {
+      document.getElementById('campo-outros-interesses').style.display = e.target.value === 'outros' ? 'block' : 'none';
+    });
+
+    // Validação e envio do formulário
+    document.getElementById('formularioOmni').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      if (!this.checkValidity()) {
+        alert('Por favor, preencha todos os campos obrigatórios corretamente.');
+        return;
+      }
+
+      const formData = new FormData(this);
+      const dados = Object.fromEntries(formData);
+
+      try {
+        const supabase = window.supabase.createClient(
+          'https://hgxuakniyncpbuvksiql.supabase.co',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhneHVha25peW5jcGJ1dmtzaXFsIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0ODcyNTA2MCwiZXhwIjoyMDY0MzAxMDYwfQ.PqFYkPC-87s3regeKRhfMsZi9t_at-LxQTP23RGOyEo'
+        );
+
+        const { data: insertedData, error } = await supabase.from('solicitacao').insert([dados]).select();
+
+        if (error || !insertedData || insertedData.length === 0) {
+          alert('Houve um erro ao enviar sua solicitação. Tente novamente mais tarde.');
+          return;
+        }
+
+        alert('Sua solicitação foi enviada com sucesso, em breve entraremos em contato com os melhores planos para sua empresa.');
+
+        const id = insertedData[0].id;
+        sessionStorage.setItem('formId', id);
+        window.location.href = `indexscreen.html`;
+      } catch (err) {
+        console.error(err);
+        alert('Erro inesperado. Verifique sua conexão e tente novamente.');
+      }
+    });
+</script>
+</html>
