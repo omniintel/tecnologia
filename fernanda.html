@@ -513,7 +513,7 @@ async function carregarTetris() {
   const container = document.getElementById('conteudoPerfil');
   const screenWidth = container.clientWidth;
 
-  const { data, error } = await supabase.from('entony').select('imagem_url, titulo, descricao');
+  const { data, error } = await supabase.from('fernanda').select('imagem_url, titulo, descricao');
   if (error || !data?.length) {
     container.innerHTML = '<p style="text-align:center;">Nenhuma imagem encontrada.</p>';
     return;
