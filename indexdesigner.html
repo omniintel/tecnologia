@@ -404,6 +404,7 @@ async function carregarTetrisInspiracional() {
           resolve({
             url: item.imagem_url || 'default.jpg',
             titulo: item.titulo || 'Sem título',
+            descricao: item.descricao || '',
             width: img.naturalWidth,
             height: img.naturalHeight,
             ratio: img.naturalWidth / img.naturalHeight,
