@@ -447,7 +447,32 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
   await carregarPerfil();
+  await carregarPerfis();
 });
+
+    async function carregarPerfis() {
+      try {
+        const { data, error } = await supabase
+          .from('designerperfil')
+          .select('*');
+
+        if (error) throw error;
+
+        const container = document.querySelector('.perfis-container');
+        container.innerHTML += ''; // mantém o título fixo
+
+        data.forEach(perfil => {
+          container.innerHTML += `
+            <ul class="perfil">
+              <li><a href="${perfil.url}" target="_blank"><img src="${perfil.imagem_url}" alt="${perfil.titulo}"></a></li>
+              <li class="titulo">${perfil.titulo}</li>
+            </ul>`;
+        });
+      } catch (error) {
+        console.error('Erro ao carregar perfis:', error);
+      }
+    }
+
 
 async function carregarPerfil() {
   try {
