@@ -478,7 +478,22 @@ window.addEventListener('resize', ajustarEspacamentoEntreLinhas);
 
 carregarTetris();
 
+searchInput.addEventListener('input', (e) => {
+  const termo = e.target.value.toLowerCase();
+  const items = document.querySelectorAll('.tetris-item');
+  items.forEach(item => {
+    const titulo = item.querySelector('h4')?.textContent.toLowerCase() || '';
+    const imagem = item.querySelector('img')?.src.toLowerCase() || '';
+    const descricao = item.dataset.descricao?.toLowerCase() || '';
 
+    const visivel = titulo.includes(termo) || 
+                   imagem.includes(termo) || 
+                   descricao.includes(termo);
+    item.style.display = visivel ? 'flex' : 'none';
+  });
 
+  // Reajusta o layout após filtrar
+  ajustarEspacamentoEntreLinhas();
+});
    </script>
 </html>
