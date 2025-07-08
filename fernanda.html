@@ -271,6 +271,97 @@
         padding: 0.75rem;
         text-transform: lowercase;
       }
+
+              .container-perfis {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  margin: 2rem auto 0;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1400px;
+  height: auto;
+  box-sizing: border-box;
+  overflow-x: hidden; /* evita rolagem horizontal */
+}
+
+.titulo-container {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.titulo-container h3 {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: clamp(1.8rem, 2.5vw, 3rem);
+  font-weight: 700;
+  background: linear-gradient(120deg, #4A00E0, #8E2DE2, #FF1493, #00BFFF);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(74,0,224,0.3), -2px -2px 4px rgba(255,20,147,0.3);
+  animation: titleEffect 13s ease-in-out infinite;
+}
+
+@keyframes titleEffect {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+    text-shadow: 2px 2px 15px rgba(52, 152, 219, 0.3);
+  }
+  100% {
+    opacity: 0.8;
+    transform: scale(0.98);
+  }
+}
+
+/* Container dos perfis (horizontal fixo) */
+.perfis-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  width: 100%;
+  gap: 2rem;
+}
+
+/* Cada perfil se ajusta proporcionalmente */
+.perfil {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  list-style: none;
+  padding: 0.8rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.perfil img {
+  width: clamp(80px, 15vw, 180px);
+  height: clamp(80px, 15vw, 180px);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.perfil .titulo {
+  margin-top: 0.8rem;
+  font-weight: bold;
+  font-size: clamp(0.8rem, 1vw, 1.1rem);
+  text-align: center;
+  width: 100%;
+}
     </style>
 </head>
 <body>
