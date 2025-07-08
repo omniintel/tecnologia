@@ -308,10 +308,22 @@
 
 <div id="conteudoInspira" class="container-perfis"></div>
 
+ </main>
 
+  <section class="rodape-empresa">
+    <h4>OMNIINTEL TECNOLOGIA LTDA</h4>
+    <p>CNPJ: 61.587.884/0001-17</p>
+    <p onclick="navigator.clipboard.writeText('5592000-5470')" style="text-decoration: underline; cursor: pointer;">Fone: (55) 92 000 - 5470</p>
+    <p onclick="navigator.clipboard.writeText('contato@omniintel.com.br')" style="text-decoration: underline; cursor: pointer;">Email: contato@omniintel.com.br</p>
+    <p>Endereço: Rua Três de Outubro, 581, Cruzeiro, Santa Rosa, RS</p>
+    <p style="visibility: hidden;">-</p>
+  </section>
 
-<script>
-async function carregarInspiracao() {
+  <button class="anuncie" role="button" onclick="window.location.href='anuncie.html'">Anuncie na OmniScreen</button>
+
+ <script>
+
+    async function carregarInspiracao() {
     try {
         const { data, error } = await supabase
             .from('inspiracoes')
@@ -329,170 +341,187 @@ async function carregarInspiracao() {
 }
 
 document.addEventListener('DOMContentLoaded', carregarInspiracao);
-</script>  </main>
 
-  <section class="rodape-empresa">
-    <h4>OMNIINTEL TECNOLOGIA LTDA</h4>
-    <p>CNPJ: 61.587.884/0001-17</p>
-    <p onclick="navigator.clipboard.writeText('5592000-5470')" style="text-decoration: underline; cursor: pointer;">Fone: (55) 92 000 - 5470</p>
-    <p onclick="navigator.clipboard.writeText('contato@omniintel.com.br')" style="text-decoration: underline; cursor: pointer;">Email: contato@omniintel.com.br</p>
-    <p>Endereço: Rua Três de Outubro, 581, Cruzeiro, Santa Rosa, RS</p>
-    <p style="visibility: hidden;">-</p>
-  </section>
 
-  <button class="anuncie" role="button" onclick="window.location.href='anuncie.html'">Anuncie na OmniScreen</button>
-
-  <script>
     // ⚠️ DICA: considere mover a key para ambiente seguro em produção
     const supabaseUrl = 'https://hgxuakniyncpbuvksiql.supabase.co';
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhneHVha25peW5jcGJ1dmtzaXFsIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0ODcyNTA2MCwiZXhwIjoyMDY0MzAxMDYwfQ.PqFYkPC-87s3regeKRhfMsZi9t_at-LxQTP23RGOyEo';
     const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
     async function carregarPerfis() {
-      try {
-        const { data, error } = await supabase
-          .from('designerperfil')
-          .select('*');
+  try {
+    const { data, error } = await supabase
+      .from('designerperfil')
+      .select('*');
 
-        if (error) throw error;
+    if (error) throw error;
 
-        const container = document.querySelector('.perfis-container');
-        container.innerHTML += ''; // mantém o título fixo
+    const container = document.querySelector('.perfis-container');
+    container.innerHTML = ''; // Limpa o container antes de adicionar
 
-        data.forEach(perfil => {
-          container.innerHTML += `
-            <ul class="perfil">
-              <li><a href="${perfil.url}" target="_blank"><img src="${perfil.imagem_url}" alt="${perfil.titulo}"></a></li>
-              <li class="titulo">${perfil.titulo}</li>
-            </ul>`;
-        });
-      } catch (error) {
-        console.error('Erro ao carregar perfis:', error);
-      }
-    }
+    data.forEach(perfil => {
+      container.innerHTML += `
+        <ul class="perfil">
+          <li><a href="${perfil.url}" target="_blank"><img src="${perfil.imagem_url}" alt="${perfil.titulo}"></a></li>
+          <li class="titulo">${perfil.titulo}</li>
+        </ul>`;
+    });
+  } catch (error) {
+    console.error('Erro ao carregar perfis:', error);
+  }
+}
 
-    document.addEventListener('DOMContentLoaded', carregarPerfis);
+document.addEventListener('DOMContentLoaded', carregarPerfis);
 
 async function carregarTetrisInspiracional() {
   const container = document.getElementById('conteudoInspira');
   if (!container) return;
 
-  const [planilha1, planilha2, planilha3] = await Promise.all([
-    supabase.from('juan').select('*'),
-    supabase.from('fernanda').select('*'),
-    supabase.from('entony').select('*'),
-  ]);
+  try {
+    const [planilha1, planilha2, planilha3] = await Promise.all([
+      supabase.from('juan').select('*'),
+      supabase.from('fernanda').select('*'), 
+      supabase.from('entony').select('*'),
+    ]);
 
-  if (planilha1.error || planilha2.error || planilha3.error) {
-    console.error('Erro ao carregar dados das planilhas.');
-    container.innerHTML = '<p style="text-align:center;">Erro ao carregar dados.</p>';
-    return;
-  }
-
-  const todosOsDados = [
-    ...(planilha1.data || []),
-    ...(planilha2.data || []),
-    ...(planilha3.data || []),
-  ];
-
-  const imagens = await Promise.all(
-    todosOsDados.map((item) =>
-      new Promise((resolve) => {
-        const img = new Image();
-        img.src = item.imagem_url || 'default.jpg';
-        img.onload = () => {
-          resolve({
-            url: item.imagem_url || 'default.jpg',
-            titulo: item.titulo || 'Sem título',
-            descricao: item.descricao || '',
-            width: img.naturalWidth,
-            height: img.naturalHeight,
-            ratio: img.naturalWidth / img.naturalHeight,
-          });
-        };
-      })
-    )
-  );
-
-  const screenWidth = container.clientWidth;
-  let row = [];
-  let rowWidth = 0;
-  const rowHeight = 250;
-
-  container.innerHTML = '';
-
-  imagens.forEach((imgData, i) => {
-    const widthAtRowHeight = imgData.ratio * rowHeight;
-    row.push(imgData);
-    rowWidth += widthAtRowHeight + 16;
-
-    if (rowWidth >= screenWidth || i === imagens.length - 1) {
-      const scaleFactor = screenWidth / rowWidth;
-      const rowEl = document.createElement('div');
-      rowEl.classList.add('tetris-row');
-
-      row.forEach((img) => {
-        const newHeight = rowHeight * scaleFactor;
-        const newWidth = newHeight * img.ratio;
-
-        const itemEl = document.createElement('div');
-        itemEl.classList.add('tetris-item');
-        itemEl.style.width = `${newWidth}px`;
-
-        itemEl.innerHTML = `
-          <img src="${img.url}" alt="${img.titulo}">
-          <h4>${img.titulo}</h4>
-        `;
-        rowEl.appendChild(itemEl);
-      });
-
-      container.appendChild(rowEl);
-      row = [];
-      rowWidth = 0;
+    if (planilha1.error || planilha2.error || planilha3.error) {
+      throw new Error('Erro ao carregar dados das planilhas');
     }
-  });
 
-  ajustarEspacamentoEntreLinhas();
+    const todosOsDados = [
+      ...(planilha1.data || []),
+      ...(planilha2.data || []),
+      ...(planilha3.data || []),
+    ];
+
+    const imagens = await Promise.all(
+      todosOsDados.map((item) =>
+        new Promise((resolve) => {
+          const img = new Image();
+          img.src = item.imagem_url;
+          img.onload = () => {
+            resolve({
+              url: item.imagem_url || 'default.jpg',
+              titulo: item.titulo || 'Sem título',
+              descricao: item.descricao || '',
+              width: img.naturalWidth,
+              height: img.naturalHeight,
+              ratio: img.naturalWidth / img.naturalHeight,
+            });
+          };
+          img.onerror = () => {
+            resolve({
+              url: 'default.jpg',
+              titulo: 'Imagem indisponível',
+              descricao: '',
+              width: 300,
+              height: 300,
+              ratio: 1
+            });
+          };
+        })
+      )
+    );
+
+    const screenWidth = window.innerWidth - 40; // Margem de 20px de cada lado
+    let row = [];
+    let rowWidth = 0;
+    const rowHeight = 250;
+
+    imagens.forEach((imgData, i) => {
+      const widthAtRowHeight = imgData.ratio * rowHeight;
+      row.push(imgData);
+      rowWidth += widthAtRowHeight + 16;
+
+      if (rowWidth >= screenWidth || i === imagens.length - 1) {
+        const scaleFactor = screenWidth / rowWidth;
+        const rowEl = document.createElement('div');
+        rowEl.classList.add('tetris-row');
+
+        row.forEach((img) => {
+          const newHeight = rowHeight * scaleFactor;
+          const newWidth = newHeight * img.ratio;
+
+          const itemEl = document.createElement('div');
+          itemEl.classList.add('tetris-item');
+          itemEl.style.width = `${newWidth}px`;
+          itemEl.dataset.descricao = img.descricao;
+
+          itemEl.innerHTML = `
+            <img src="${img.url}" alt="${img.titulo}" loading="lazy">
+            <h4>${img.titulo}</h4>
+          `;
+          rowEl.appendChild(itemEl);
+        });
+
+        container.appendChild(rowEl);
+        row = [];
+        rowWidth = 0;
+      }
+    });
+  } catch (error) {
+    console.error('Erro:', error);
+    container.innerHTML = '<p style="text-align:center;">Erro ao carregar conteúdo.</p>';
+  }
 }
 
 function ajustarEspacamentoEntreLinhas() {
-  const linhas = document.querySelectorAll('.tetris-row');
-  linhas.forEach((linha) => {
-    let alturaMax = 0;
-    const itens = linha.querySelectorAll('.tetris-item');
-    itens.forEach((item) => {
-      const altura = item.offsetHeight;
-      if (altura > alturaMax) alturaMax = altura;
-    });
-    itens.forEach((item) => {
-      item.style.marginBottom = '20px';
-      const diferenca = alturaMax - item.offsetHeight;
-      item.style.marginBottom = `${20 + diferenca}px`;
+  requestAnimationFrame(() => {
+    const linhas = document.querySelectorAll('.tetris-row');
+    linhas.forEach((linha) => {
+      let alturaMax = 0;
+      const itens = linha.querySelectorAll('.tetris-item');
+      itens.forEach((item) => {
+        const altura = item.offsetHeight;
+        alturaMax = Math.max(alturaMax, altura);
+      });
+      itens.forEach((item) => {
+        const diferenca = alturaMax - item.offsetHeight;
+        item.style.marginBottom = `${20 + diferenca}px`;
+      });
     });
   });
 }
 
+const debouncedAjuste = debounce(ajustarEspacamentoEntreLinhas, 250);
+
 window.addEventListener('load', carregarTetrisInspiracional);
-window.addEventListener('resize', ajustarEspacamentoEntreLinhas);
+window.addEventListener('resize', debouncedAjuste);
 
-searchInput.addEventListener('input', (e) => {
-  const termo = e.target.value.toLowerCase();
-  const items = document.querySelectorAll('.tetris-item');
-  items.forEach(item => {
-    const titulo = item.querySelector('h4')?.textContent.toLowerCase() || '';
-    const imagem = item.querySelector('img')?.src.toLowerCase() || '';
-    const descricao = item.dataset.descricao?.toLowerCase() || '';
+const searchInput = document.getElementById('searchInput');
+if (searchInput) {
+  searchInput.addEventListener('input', debounce((e) => {
+    const termo = e.target.value.toLowerCase().trim();
+    const items = document.querySelectorAll('.tetris-item');
+    
+    items.forEach(item => {
+      const titulo = item.querySelector('h4')?.textContent.toLowerCase() || '';
+      const imagem = item.querySelector('img')?.src.toLowerCase() || '';
+      const descricao = item.dataset.descricao?.toLowerCase() || '';
 
-    const visivel = titulo.includes(termo) || 
-                   imagem.includes(termo) || 
-                   descricao.includes(termo);
-    item.style.display = visivel ? 'flex' : 'none';
-  });
+      const visivel = termo === '' || 
+                     titulo.includes(termo) || 
+                     imagem.includes(termo) || 
+                     descricao.includes(termo);
+                     
+      item.style.display = visivel ? 'flex' : 'none';
+    });
 
-  // Reajusta o layout após filtrar
-  ajustarEspacamentoEntreLinhas();
-});
+    debouncedAjuste();
+  }, 300));
+}
 
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
   </script>
 </body>
 </html>
