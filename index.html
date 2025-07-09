@@ -619,69 +619,23 @@ mostrarImagem(carrosselBase, 0);
 
 setInterval(proximaImagemTopo, 4000); // Troca de imagem a cada 4 segundos no topo
 setInterval(proximaImagemBase, 4000); // Troca de imagem a cada 4 segundos na base    // Iniciar com a primeira imagem visível
-const SUPABASE_URL = 'https://hgxuakniyncpbuvksiql.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhneHVha25peW5jcGJ1dmtzaXFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg3MjUwNjAsImV4cCI6MjA2NDMwMTA2MH0.QGeTGjtHxWm6CcPxEWNoVLeE2b73qjo1LhiGsuVSv_o';
 
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    async function registrarAcesso() {
+    const dados = coletarDadosDoNavegador();
 
-async function carregarDestaques() {
-    if (window.innerWidth <= 1024) {
-        console.log('Não carregar destaques, tela menor que desktop.');
-        return;
+    const { data, error } = await supabase
+      .from('info_acesso')
+      .insert([dados]);
+
+    if (error) {
+      console.error('Erro ao enviar dados para Supabase:', error);
+    } else {
+      console.log('Acesso registrado com sucesso:', data);
     }
+  }
 
-    try {
-        const { data, error } = await supabase
-            .from('destaques')
-            .select('*')
-            .order('created_at', { ascending: false });
-
-        if (error) throw error;
-
-        const container = document.getElementById('lateral-dinamica');
-        container.innerHTML = '';
-
-        for (const item of data) {
-            const box = document.createElement('div');
-            box.classList.add('box-lateral');
-
-            const { data: urlData, error: urlError } = supabase
-                .storage
-                .from('imagens')
-                .getPublicUrl(item.link);
-
-            if (urlError) {
-                console.warn('Erro ao obter URL da imagem:', urlError);
-                continue;
-            }
-
-            const url = urlData.publicUrl;
-
-            if (item.tipo === 'imagem') {
-                const img = document.createElement('img');
-                img.src = url;
-                img.alt = 'Imagem destaque';
-                box.appendChild(img);
-            } else if (item.tipo === 'video') {
-                const video = document.createElement('video');
-                video.src = url;
-                video.autoplay = true;
-                video.loop = true;
-                video.muted = true;
-                video.playsInline = true;
-                box.appendChild(video);
-            } else {
-                console.warn('Tipo desconhecido:', item.tipo);
-            }
-
-            container.appendChild(box);
-        }
-    } catch (err) {
-        console.error('Erro ao carregar destaques:', err);
-    }
-}
-
-document.addEventListener('DOMContentLoaded', carregarDestaques);
+  // ✅ Executar ao carregar a página
+  registrarAcesso();
 
 </script>
 </html>
