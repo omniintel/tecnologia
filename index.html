@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+=<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -72,273 +72,227 @@
 
     <style>
 .carrossel {
-    width: 100%;
-    height: 0;
-    padding-bottom: 50%;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 0;
+  width: 100%;
+  height: 0;
+  padding-bottom: 50%;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 0;
 }
 
 .carrossel img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
 }
 
 .carrossel img.active {
-    opacity: 1;
+  opacity: 1;
 }
 
-/* Container Geral */
 .conteudo-dinamico {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    width: 100%;
-    padding: 2rem;
-    box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
-/* === LATERAL DIREITA COM 3 CAIXAS === */
 .lateral-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-    flex: 1;
-    max-width: 20%;
-    perspective: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  flex: 1;
+  max-width: 20%;
+  perspective: 1000px;
 }
 
 .box-lateral {
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    width: 100%;
-    transform-style: preserve-3d;
-    animation: pulse 2s infinite ease-in-out;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  transform-style: preserve-3d;
+  animation: pulse 2s infinite ease-in-out;
 }
 
 @keyframes pulse {
-    0% {
-        transform: translateZ(0) scale(1);
-        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-    }
-    50% {
-        transform: translateZ(20px) scale(1.02);
-        box-shadow: 0 12px 48px rgba(31, 38, 135, 0.25);
-    }
-    100% {
-        transform: translateZ(0) scale(1);
-        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-    }
+  0% {
+    transform: translateZ(0) scale(1);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+  }
+  50% {
+    transform: translateZ(20px) scale(1.02);
+    box-shadow: 0 12px 48px rgba(31, 38, 135, 0.25);
+  }
+  100% {
+    transform: translateZ(0) scale(1);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+  }
 }
 
 .box-lateral:hover {
-    transform: translateZ(30px) scale(1.05) rotateY(10deg);
-    box-shadow: 0 15px 35px rgba(31, 38, 135, 0.35);
+  transform: translateZ(30px) scale(1.05) rotateY(10deg);
+  box-shadow: 0 15px 35px rgba(31, 38, 135, 0.35);
 }
 
 .box-lateral img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-style: preserve-3d;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
 }
 
 .box-lateral:hover img {
-    transform: translateZ(20px) scale(1.1);
+  transform: translateZ(20px) scale(1.1);
 }
 
-/* === CONTEÚDO PRINCIPAL === */
 .principal-container {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    flex: 3;
-    align-items: stretch;
-    max-width: 100%;
-    padding: 0 1rem;
-    box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  flex: 3;
+  align-items: stretch;
+  max-width: 100%;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
-/* Texto com efeito vidro espelhado */
 .texto-container {
-    flex: 1;
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 16px;
-    padding: 2rem;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-    transition: transform 0.4s, box-shadow 0.4s;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.4s, box-shadow 0.4s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .texto-container:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
 }
 
 .texto-container h2 {
-    color: var(--amarelo-escuro);
-    font-size: 2rem;
-    margin-bottom: 1rem;
+  color: var(--amarelo-escuro);
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 
 .texto-container p {
-    width: 100%;
-    color: var(--branco);
+  color: var(--branco);
+  width: 100%;
 }
 
-/* Vídeo principal */
 .video-container {
-    flex: 1 1 100%;
-    border-radius: 50px;
-    overflow: hidden;
-    width: 100%;
+  flex: 1 1 100%;
+  border-radius: 50px;
+  overflow: hidden;
+  width: 100%;
 }
 
 .video-container video {
-    width: 100%;
-    height: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: fill;
-    display: block;
-    min-width: 100%;
-}
-
-/* === RESPONSIVIDADE === */
-@media (max-width: 1024px) {
-    .lateral-container {
-        display: none;
-    }
-
-    .principal-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .texto-container {
-        width: 100%;
-        max-width: 800px;
-        text-align: center;
-    }
-
-    .video-container {
-        width: 100%;
-        max-width: 800px;
-    }
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: fill;
+  display: block;
+  min-width: 100%;
 }
 
 .parceiros {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-    padding: 2rem;
-    position: relative;
-    text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+  position: relative;
+  text-align: center;
 }
 
 .parceiros h3 {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    margin: 0;
-    padding-top: 2rem;
-    color: var(--amarelo-escuro);
-    font-size: 2.5rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  margin: 0;
+  padding-top: 2rem;
+  color: var(--amarelo-escuro);
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .containerpart {
-    background: linear-gradient(165deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-    border-radius: 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    padding: 2rem;
-    flex: 1;
-    width: 33.33%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-    transition: transform 0.4s ease;
-    margin-top: 4rem;
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  flex: 1;
+  width: 33.33%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  transition: transform 0.4s ease;
+  margin-top: 4rem;
 }
 
 .containerpart:hover {
-    transform: translateY(-8px) scale(1.02);
-}
-
-@media screen and (max-width: 768px) {
-    .containerpart {
-        width: 100%;
-        margin-bottom: 1rem;
-    }
+  transform: translateY(-8px) scale(1.02);
 }
 
 .apoio-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
 }
 
 .apoio-item img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    border-radius: 1rem;
-    transition: transform 0.3s ease;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 1rem;
+  transition: transform 0.3s ease;
 }
 
 .apoio-item h4 {
-    color: var(--branco);
-    font-size: 1.4rem;
-    margin: 0;
-    text-align: center;
+  color: var(--branco);
+  font-size: 1.4rem;
+  margin: 0;
+  text-align: center;
 }
 
 .apoio-item p {
-    color: var(--branco);
-    font-size: 1rem;
-    text-align: center;
-    line-height: 1.4;
-    margin: 0;
-    opacity: 0.8;
-}
-
-@media (min-width: 1024px) {
-    .parceiros {
-        flex-wrap: nowrap;
-        gap: 3rem;
-    }
-
-    .containerpart {
-        max-width: 350px;
-    }
+  color: var(--branco);
+  font-size: 1rem;
+  text-align: center;
+  line-height: 1.4;
+  margin: 0;
+  opacity: 0.8;
 }
 
 .base {
@@ -420,17 +374,34 @@
   opacity: 0.9;
 }
 
-/* === Responsivo === */
+/* Responsivo */
 @media (max-width: 1024px) {
+  .lateral-container {
+    display: none;
+  }
+
+  .principal-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .texto-container {
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+  }
+
+  .video-container {
+    width: 100%;
+    max-width: 800px;
+  }
+
   .container-base {
     flex-direction: row;
     flex-wrap: wrap;
   }
 
-  .texto-wrapper {
-    flex: 1 1 50%;
-  }
-
+  .texto-wrapper,
   .imagem-wrapper {
     flex: 1 1 50%;
   }
@@ -441,6 +412,11 @@
 }
 
 @media (max-width: 768px) {
+  .containerpart {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
   .container-base {
     flex-direction: column;
   }
@@ -459,136 +435,163 @@
     padding: 1.5rem;
   }
 }
-
 </style>
 </head>
 <body>
-    <header class="cabeca">
-        <div class="header-container">
-            <button id="abremenu" class="menubotao">☰</button>
-            <h1 class="tipage">OMNIINTEL</h1>
-        </div>
-        <div class="social-sidebar">
-            <div class="social-icon instagram-icon">
-                <a href="https://www.instagram.com/omniintel/" target="_blank">
-                    <img src="iconeinstagram.png" alt="Instagram">
-                </a>
-            </div>
-            <div class="social-icon whatsapp-icon">
-                <a href="https://wa.me/message/47X2CV2HAJPOI1" target="_blank">
-                    <img src="iconewhats.png" alt="WhatsApp">
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <nav id="enimenu" class="menulat">
-        <ul>
-            <li><a href="index.html" style="background: #cfa60079;">Início</a></li>
-            <li><a href="indexscreen.html">OmniScreen</a></li>
-            <li><a href="indexpages.html">OmniWebPages</a></li>
-            <li><a href="indexdesigner.html">OmniDesigner</a></li>
-            <li><a href="indexcontact.html">OmniContato</a></li>
-        </ul>
-        <div class="imagemenu">
-            <img src="menuimagem.jpeg" alt="Imagem do menu">
-        </div>
-        <h6 class="direitos">Todos os direitos reservados</br> &copy; Omniintel 2025</h6>
-        <h6 style="visibility: hidden;">-</h6> <!-- Evita sobreposição do botão em mobile -->
-    </nav>
- <main class="homepage animar-conteudo" id="containerprin">
-
-        <!-- Carrossel Topo -->
-        <section class="carrossel" id="carrossel-topo">
-            <img src="slide4.jpeg" alt="Slide 1" />
-            <img src="slide5.jpeg" alt="Slide 2" />
-            <img src="slide6.jpeg" alt="Slide 3" />
-        </section>
-
-        <section class="conteudo-dinamico">
-<div class="lateral-container" id="lateral-dinamica">
-    <div class="box-lateral">
-    <a href="https://www.instagram.com/nobre_arte.sr/" target="_blank">
-        <img src="anuncionobrearte.jpeg" alt="Imagem lateral" style="width: 100%; height: 100%; object-fit: cover;">
-    </a>
+  <!-- Cabeçalho -->
+  <header class="cabeca">
+    <div class="header-container">
+      <button id="abremenu" class="menubotao">☰</button>
+      <h1 class="tipage">OMNIINTEL</h1>
     </div>
-</div>
 
-    <div class="principal-container">
-        <div class="texto-container">
-            <h2>Inovação e Tecnologia</h2>
-<p>"<b>A melhor forma de prever o futuro é criá-lo</b>." - <a href="https://pt.wikipedia.org/wiki/Peter_Drucker" target="_blank" style="color: white;"><i>Peter Drucker</i></a></p>
-            <video src="videoini.mp4" autoplay loop muted controlsList="nodownload nofullscreen noremoteplayback noplaybackrate" disablePictureInPicture></video>        
-        </div>
+    <div class="social-sidebar">
+      <div class="social-icon instagram-icon">
+        <a href="https://www.instagram.com/omniintel/" target="_blank">
+          <img src="iconeinstagram.png" alt="Instagram">
+        </a>
+      </div>
+      <div class="social-icon whatsapp-icon">
+        <a href="https://wa.me/message/47X2CV2HAJPOI1" target="_blank">
+          <img src="iconewhats.png" alt="WhatsApp">
+        </a>
+      </div>
     </div>
-</section>
+  </header>
 
-<section class="parceiros">
-    <h3 style="margin-bottom: 1rem;">APOIO</h3>
-            <div class="containerpart">
-                <div class="apoio-item">
-                    <a href="https://www.instagram.com/utidosmicros?igsh=Nm9hZnVqamh5OXVp"><img src="utidosmicros.jpeg" alt="Parceiro 1" /></a>
-                    <h4>UTI DOS MICROS</h4>
-                    <p>Assistencia tecnica especializada em notebooks.</p>
-                </div>
-            </div>
-                        <div class="containerpart">
-                <div class="apoio-item">
-                    <a href="https://wa.me/5555999669942?text=Boa%20tarde%20gostaria%20de%20saber%20mais%20sobre%20os%20planos%20de%20voc%C3%AAs!%20"><img src="arrobanet.jpeg" alt="Parceiro 1" /></a>
-                    <h4>ARROBA NET</h4>
-                    <p>Provedora de internet para redes wifi e 5G.</p>
-                </div>
-            </div>
-                        <div class="containerpart">
-                <div class="apoio-item">
-                    <a href="https://www.instagram.com/_cyberjohn?igsh=OTFpbG41dWN4NDB4"><img src="cyber.jpeg" alt="Parceiro 1" /></a>
-                    <h4>CYBERMIND SOLUTIONS</h4>
-                    <p>Especialistas em automação e inteligência artificial para empresas inovadoras.</p>
-                </div>
-            </div>
-            </section>
+  <!-- Menu lateral -->
+  <nav id="enimenu" class="menulat">
+    <ul>
+      <li><a href="index.html" style="background: #cfa60079;">Início</a></li>
+      <li><a href="indexscreen.html">OmniScreen</a></li>
+      <li><a href="indexpages.html">OmniWebPages</a></li>
+      <li><a href="indexdesigner.html">OmniDesigner</a></li>
+      <li><a href="indexcontact.html">OmniContato</a></li>
+    </ul>
 
-        <section class="carrossel" id="carrossel-base">
-            <img src="slide3.jpeg" alt="Slide 1" />
-            <img src="slide2.jpeg" alt="Slide 2" />
-            <img src="slide1.jpeg" alt="Slide 3" />
-        </section>
-
-<section class="base">
-  <div class="container-base">
-    <div class="texto-wrapper">
-      <h4>Tecnologia que inspira. Soluções que conectam.</h4>
-      <p class="intro">
-A Omniintel nasceu com um propósito claro: transformar ideias em experiências tecnológicas reais, criativas e acessíveis. Unindo inovação, design e inteligência prática, oferecemos soluções que vão além do esperado. Seja na criação de campanhas impactantes, no desenvolvimento de plataformas interativas, ou na manutenção precisa de equipamentos de alto desempenho. A inspiração está em cada projeto, porque acreditamos que tecnologia boa é aquela que emociona, resolve e aproxima.
-      </p>
+    <div class="imagemenu">
+      <img src="menuimagem.jpeg" alt="Imagem do menu">
     </div>
-    <div class="imagem-wrapper">
-      <img src="backgrouddesktop.jpeg" alt="Imagem representativa" />
-    </div>
-  </div>
-  <div class="segmento">
-    <p>
-Nossa atuação é multifacetada e estratégica. Trabalhamos com desenvolvimento de sites personalizados, produção visual criativa, campanhas publicitárias ousadas, automação de atendimento, sistemas interativos para espaços públicos, além de assistência técnica especializada em placas lógicas e equipamentos de alto desempenho. Cada serviço é pensado para gerar impacto, valor e crescimento, tanto para empresas quanto para pessoas que querem fazer mais com tecnologia.
 
-A Omniintel não é só uma empresa, é um laboratório de ideias. Com olhar atento às tendências e aos desafios do mundo moderno, estamos sempre conectados ao que há de mais relevante e funcional. E o melhor: entregamos com agilidade, eficiência e um toque de originalidade que só quem vive tecnologia como arte consegue oferecer. Porque para nós, a conexão começa com propósito e se completa com resultado.
-    </p>
-  </div>
-</section>
+    <h6 class="direitos">Todos os direitos reservados<br>&copy; Omniintel 2025</h6>
+    <h6 style="visibility: hidden;">-</h6> <!-- Prevenção de sobreposição em mobile -->
+  </nav>
 
-
-   
-</main>
-    <section class="rodape-empresa">
-        <h4>OMNIINTEL TECNOLOGIA LTDA</h4>
-        <p>CNPJ: 61.587.884/0001-17</p>
-        <p onclick="navigator.clipboard.writeText('5592000-5470')" style="text-decoration: underline; text-decoration-style: solid; text-decoration-color: #666; cursor: pointer;">Fone: (55) 92 000 - 5470</p>
-        <p onclick="navigator.clipboard.writeText('contato@omniintel.com.br')" style="text-decoration: underline; text-decoration-style: solid; text-decoration-color: #666; cursor: pointer;">Email: contato@omniintel.com.br</p>
-        <p>Endereço: Rua Três de Outubro, 581, Cruzeiro, Santa Rosa, RS</p>
-        <p style="visibility: hidden;">-</p>
+  <!-- Conteúdo principal -->
+  <main class="homepage animar-conteudo" id="containerprin">
+    
+    <!-- Carrossel Topo -->
+    <section class="carrossel" id="carrossel-topo">
+      <img src="slide4.jpeg" alt="Slide 1">
+      <img src="slide5.jpeg" alt="Slide 2">
+      <img src="slide6.jpeg" alt="Slide 3">
     </section>
-     <button class="anuncie" onclick="window.location.href='anuncie.html'">Anuncie na OmniScreen</button>
+
+    <!-- Bloco de conteúdo dinâmico -->
+    <section class="conteudo-dinamico">
+      
+      <!-- Lateral com anúncio -->
+      <div class="lateral-container" id="lateral-dinamica">
+        <div class="box-lateral">
+          <a href="https://www.instagram.com/nobre_arte.sr/" target="_blank">
+            <img src="anuncionobrearte.jpeg" alt="Anúncio Lateral">
+          </a>
+        </div>
+      </div>
+
+      <!-- Bloco principal com texto e vídeo -->
+      <div class="principal-container">
+        <div class="texto-container">
+          <h2>Inovação e Tecnologia</h2>
+          <p>"<b>A melhor forma de prever o futuro é criá-lo</b>." — <a href="https://pt.wikipedia.org/wiki/Peter_Drucker" target="_blank" style="color: white;"><i>Peter Drucker</i></a></p>
+          <video src="videoini.mp4" autoplay loop muted controlsList="nodownload nofullscreen noremoteplayback noplaybackrate" disablePictureInPicture></video>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Parceiros -->
+    <section class="parceiros">
+      <h3>APOIO</h3>
+
+      <div class="containerpart">
+        <div class="apoio-item">
+          <a href="https://www.instagram.com/utidosmicros?igsh=Nm9hZnVqamh5OXVp">
+            <img src="utidosmicros.jpeg" alt="UTI dos Micros">
+          </a>
+          <h4>UTI DOS MICROS</h4>
+          <p>Assistência técnica especializada em notebooks.</p>
+        </div>
+      </div>
+
+      <div class="containerpart">
+        <div class="apoio-item">
+          <a href="https://wa.me/5555999669942?text=Boa%20tarde%20gostaria%20de%20saber%20mais%20sobre%20os%20planos%20de%20vocês!">
+            <img src="arrobanet.jpeg" alt="Arroba Net">
+          </a>
+          <h4>ARROBA NET</h4>
+          <p>Provedora de internet para redes Wi-Fi e 5G.</p>
+        </div>
+      </div>
+
+      <div class="containerpart">
+        <div class="apoio-item">
+          <a href="https://www.instagram.com/_cyberjohn?igsh=OTFpbG41dWN4NDB4">
+            <img src="cyber.jpeg" alt="Cybermind Solutions">
+          </a>
+          <h4>CYBERMIND SOLUTIONS</h4>
+          <p>Automação e inteligência artificial para empresas inovadoras.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Segundo carrossel -->
+    <section class="carrossel" id="carrossel-base">
+      <img src="slide3.jpeg" alt="Slide 1">
+      <img src="slide2.jpeg" alt="Slide 2">
+      <img src="slide1.jpeg" alt="Slide 3">
+    </section>
+
+    <!-- Bloco base institucional -->
+    <section class="base">
+      <div class="container-base">
+        <div class="texto-wrapper">
+          <h4>Tecnologia que inspira. Soluções que conectam.</h4>
+          <p class="intro">
+            A Omniintel nasceu com um propósito claro: transformar ideias em experiências tecnológicas reais, criativas e acessíveis. Unindo inovação, design e inteligência prática, oferecemos soluções que vão além do esperado. Seja na criação de campanhas impactantes, no desenvolvimento de plataformas interativas ou na manutenção precisa de equipamentos de alto desempenho. A inspiração está em cada projeto, porque acreditamos que tecnologia boa é aquela que emociona, resolve e aproxima.
+          </p>
+        </div>
+        <div class="imagem-wrapper">
+          <img src="backgrouddesktop.jpeg" alt="Imagem representativa">
+        </div>
+      </div>
+
+      <div class="segmento">
+        <p>
+          Nossa atuação é multifacetada e estratégica. Trabalhamos com desenvolvimento de sites personalizados, produção visual criativa, campanhas publicitárias ousadas, automação de atendimento, sistemas interativos para espaços públicos e assistência técnica especializada em placas lógicas e equipamentos de alto desempenho.
+
+          A Omniintel não é apenas uma empresa — é um laboratório de ideias. Conectados com as tendências e os desafios do mundo moderno, entregamos soluções ágeis, eficientes e com um toque original que só quem vive tecnologia como arte consegue oferecer. Para nós, a conexão começa com propósito e se completa com resultados.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Rodapé institucional -->
+  <section class="rodape-empresa">
+    <h4>OMNIINTEL TECNOLOGIA LTDA</h4>
+    <p>CNPJ: 61.587.884/0001-17</p>
+    <p onclick="navigator.clipboard.writeText('55920005470')" style="text-decoration: underline; cursor: pointer;">Fone: (55) 92 000-5470</p>
+    <p onclick="navigator.clipboard.writeText('contato@omniintel.com.br')" style="text-decoration: underline; cursor: pointer;">E-mail: contato@omniintel.com.br</p>
+    <p>Endereço: Rua Três de Outubro, 581, Cruzeiro, Santa Rosa - RS</p>
+    <p style="visibility: hidden;">-</p>
+  </section>
+
+  <!-- Botão de ação -->
+  <button class="anuncie" onclick="window.location.href='anuncie.html'">
+    Anuncie na OmniScreen
+  </button>
 </body>
-<script>
+<script type="module">
   import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
   const SUPABASE_URL = 'https://hgxuakniyncpbuvksiql.supabase.co';
@@ -719,5 +722,6 @@ A Omniintel não é só uma empresa, é um laboratório de ideias. Com olhar ate
 
   document.addEventListener('DOMContentLoaded', carregarDestaques);
 
+  
 </script>
 </html>
