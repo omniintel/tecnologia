@@ -1,4 +1,4 @@
-=<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -589,44 +589,66 @@ A Omniintel não é só uma empresa, é um laboratório de ideias. Com olhar ate
      <button class="anuncie" onclick="window.location.href='anuncie.html'">Anuncie na OmniScreen</button>
 </body>
 <script>
-const carrosselTopo = document.querySelectorAll('#carrossel-topo img');
-const carrosselBase = document.querySelectorAll('#carrossel-base img');
-let indexTopo = 0;
-let indexBase = 0;
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
-function mostrarImagem(imagens, index) {
-    imagens.forEach((img, i) => {
-        img.classList.remove('active');
-        if (i === index) {
-            img.classList.add('active');
-        }
-    });
-}
-
-function proximaImagemTopo() {
-    indexTopo = (indexTopo + 1) % carrosselTopo.length;
-    mostrarImagem(carrosselTopo, indexTopo);
-}
-
-function proximaImagemBase() {
-    indexBase = (indexBase + 1) % carrosselBase.length;
-    mostrarImagem(carrosselBase, indexBase);
-}
-
-// Mostra primeira imagem imediatamente em ambos carrosséis
-mostrarImagem(carrosselTopo, 0);
-mostrarImagem(carrosselBase, 0);
-
-setInterval(proximaImagemTopo, 4000); // Troca de imagem a cada 4 segundos no topo
-setInterval(proximaImagemBase, 4000); // Troca de imagem a cada 4 segundos na base    // Iniciar com a primeira imagem visível
-
-   import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-
-    const SUPABASE_URL = 'https://hgxuakniyncpbuvksiql.supabase.co';
+  const SUPABASE_URL = 'https://hgxuakniyncpbuvksiql.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhneHVha25peW5jcGJ1dmtzaXFsIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0ODcyNTA2MCwiZXhwIjoyMDY0MzAxMDYwfQ.PqFYkPC-87s3regeKRhfMsZi9t_at-LxQTP23RGOyEo'; // Truncado por segurança
   const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    async function registrarAcesso() {
+  const carrosselTopo = document.querySelectorAll('#carrossel-topo img');
+  const carrosselBase = document.querySelectorAll('#carrossel-base img');
+  let indexTopo = 0;
+  let indexBase = 0;
+
+  function mostrarImagem(imagens, index) {
+    imagens.forEach((img, i) => {
+      img.classList.toggle('active', i === index);
+    });
+  }
+
+  function iniciarCarrossel(imagens, indexRef, atualizarIndex) {
+    if (!imagens.length) return;
+    mostrarImagem(imagens, 0);
+    setInterval(() => {
+      indexRef.value = (indexRef.value + 1) % imagens.length;
+      mostrarImagem(imagens, indexRef.value);
+    }, 4000);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    iniciarCarrossel(carrosselTopo, { value: indexTopo }, (i) => indexTopo = i);
+    iniciarCarrossel(carrosselBase, { value: indexBase }, (i) => indexBase = i);
+  });
+
+  function coletarDadosDoNavegador() {
+    try {
+      return {
+        user_agent: navigator.userAgent || '',
+        idioma: navigator.language || '',
+        plataforma: navigator.platform || '',
+        cookies_habilitados: typeof navigator.cookieEnabled === 'boolean' ? navigator.cookieEnabled : null,
+        hora_acesso: new Date().toISOString(),
+        resolucao: `${screen.width || 0}x${screen.height || 0}`,
+        tipo_dispositivo: /Mobi|Android/i.test(navigator.userAgent) ? 'mobile' : 'desktop',
+        localizacao: '' // Pode ser preenchido com uma API se quiser
+      };
+    } catch (e) {
+      // Em caso de falha, retorna dados vazios
+      return {
+        user_agent: '',
+        idioma: '',
+        plataforma: '',
+        cookies_habilitados: null,
+        hora_acesso: new Date().toISOString(),
+        resolucao: '',
+        tipo_dispositivo: '',
+        localizacao: ''
+      };
+    }
+  }
+
+  // ✅ Enviar para o Supabase
+  async function registrarAcesso() {
     const dados = coletarDadosDoNavegador();
 
     const { data, error } = await supabase
@@ -642,6 +664,60 @@ setInterval(proximaImagemBase, 4000); // Troca de imagem a cada 4 segundos na ba
 
   // ✅ Executar ao carregar a página
   registrarAcesso();
+  
+  async function carregarDestaques() {
+    if (window.innerWidth <= 1024) return;
+
+    try {
+      const { data, error } = await supabase
+        .from('destaques')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      const container = document.getElementById('lateral-dinamica');
+      if (!container) return;
+
+      container.innerHTML = '';
+
+      for (const item of data) {
+        const box = document.createElement('div');
+        box.className = 'box-lateral';
+
+        const { data: urlData, error: urlError } = supabase
+          .storage
+          .from('imagens')
+          .getPublicUrl(item.link);
+
+        if (urlError) continue;
+        const url = urlData.publicUrl;
+
+        if (item.tipo === 'imagem') {
+          const img = document.createElement('img');
+          img.src = url;
+          img.alt = 'Imagem destaque';
+          box.appendChild(img);
+        } else if (item.tipo === 'video') {
+          const video = document.createElement('video');
+          Object.assign(video, {
+            src: url,
+            autoplay: true,
+            loop: true,
+            muted: true,
+            playsInline: true
+          });
+          box.appendChild(video);
+        }
+
+        container.appendChild(box);
+      }
+    } catch (err) {
+      console.error('Erro ao carregar destaques:', err);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', carregarDestaques);
 
 </script>
 </html>
