@@ -419,5 +419,167 @@ Confirma que as informações fornecidas são verdadeiras e atualizadas  </texta
         alert('Erro inesperado. Verifique sua conexão e tente novamente.');
       }
     });
+
+       function gerarUUID() {
+    return crypto.randomUUID();
+  }
+
+  // Atualiza a URL com o UUID
+  function atualizarUrlComUUID(uuid) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('uuid', uuid);
+    window.history.replaceState({}, '', url);
+  }
+
+  // Coleta dados do navegador
+  function coletarDadosDoNavegador(uuid) {
+    try {
+      return {
+        uuid,
+        user_agent: navigator.userAgent || '',
+        idioma: navigator.language || '',
+        plataforma: navigator.platform || '',
+        cookies_habilitados: typeof navigator.cookieEnabled === 'boolean' ? navigator.cookieEnabled : null,
+        hora_acesso: new Date().toISOString(),
+        resolucao: `${screen.width || 0}x${screen.height || 0}`,
+        tipo_dispositivo: /Mobi|Android/i.test(navigator.userAgent) ? 'mobile' : 'desktop',
+        localizacao: '', // Pode usar uma API externa aqui se quiser
+      };
+    } catch (e) {
+      return {
+        uuid,
+        user_agent: '',
+        idioma: '',
+        plataforma: '',
+        cookies_habilitados: null,
+        hora_acesso: new Date().toISOString(),
+        resolucao: '',
+        tipo_dispositivo: '',
+        localizacao: ''
+      };
+    }
+  }
+
+  // Lógica principal para obter ou criar UUID
+  async function obterOuCriarUUID() {
+    const localUUID = localStorage.getItem('uuid');
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlUUID = urlParams.get('uuid');
+
+    // Caso 1: Nenhum UUID presente
+    if (!localUUID && !urlUUID) {
+      const novoUUID = gerarUUID();
+      localStorage.setItem('uuid', novoUUID);
+      atualizarUrlComUUID(novoUUID);
+      return novoUUID;
+    }
+
+    // Caso 2: UUID na URL mas não no localStorage (URL inválida ou copiada)
+    if (urlUUID && !localUUID) {
+      const novoUUID = gerarUUID();
+      localStorage.setItem('uuid', novoUUID);
+      atualizarUrlComUUID(novoUUID);
+      return novoUUID;
+    }
+
+    // Caso 3: UUID no localStorage mas não na URL
+    if (localUUID && !urlUUID) {
+      atualizarUrlComUUID(localUUID);
+      return localUUID;
+    }
+
+    // Caso 4: Ambos presentes – verificar se o UUID existe na planilha
+    if (localUUID && urlUUID) {
+      const { data, error } = await supabase
+        .from('info_acesso')
+        .select('uuid')
+        .eq('uuid', localUUID)
+        .limit(1);
+
+      // UUID não existe na planilha, precisa criar um novo
+      if (error || !data || data.length === 0) {
+        const novoUUID = gerarUUID();
+        localStorage.setItem('uuid', novoUUID);
+        atualizarUrlComUUID(novoUUID);
+        return novoUUID;
+      }
+
+      // UUID válido, manter
+      return localUUID;
+    }
+  }
+
+  // Envia os dados para o Supabase
+  async function registrarAcesso() {
+    const uuid = await obterOuCriarUUID();
+    const dados = coletarDadosDoNavegador(uuid);
+
+    const { error } = await supabase
+      .from('info_acesso')
+      .insert([dados]);
+
+    if (error) {
+      console.error('Erro ao enviar dados para Supabase:', error);
+    } else {
+      console.log('Acesso registrado com sucesso:', dados);
+    }
+  }
+
+  // Iniciar
+  registrarAcesso();
+
+  async function carregarDestaques() {
+    if (window.innerWidth <= 1024) return;
+
+    try {
+      const { data, error } = await supabase
+        .from('destaques')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      const container = document.getElementById('lateral-dinamica');
+      if (!container) return;
+
+      container.innerHTML = '';
+
+      for (const item of data) {
+        const box = document.createElement('div');
+        box.className = 'box-lateral';
+
+        const { data: urlData, error: urlError } = supabase
+          .storage
+          .from('imagens')
+          .getPublicUrl(item.link);
+
+        if (urlError) continue;
+        const url = urlData.publicUrl;
+
+        if (item.tipo === 'imagem') {
+          const img = document.createElement('img');
+          img.src = url;
+          img.alt = 'Imagem destaque';
+          box.appendChild(img);
+        } else if (item.tipo === 'video') {
+          const video = document.createElement('video');
+          Object.assign(video, {
+            src: url,
+            autoplay: true,
+            loop: true,
+            muted: true,
+            playsInline: true
+          });
+          box.appendChild(video);
+        }
+
+        container.appendChild(box);
+      }
+    } catch (err) {
+      console.error('Erro ao carregar destaques:', err);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', carregarDestaques);
 </script>
 </html>
