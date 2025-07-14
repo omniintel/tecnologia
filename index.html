@@ -574,6 +574,23 @@
         </p>
       </div>
     </section>
+
+        <div id="contador-visitas" style="
+  position: relative;
+  margin: 20px auto;
+  text-align: center;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  width: fit-content;
+">
+  Visitantes: carregando...
+</div>
+
   </main>
 
   <!-- Rodapé institucional -->
@@ -784,6 +801,27 @@
   }
 
   document.addEventListener('DOMContentLoaded', carregarDestaques);
+
+  // Contador de visitas (linhas da planilha info_acesso)
+async function atualizarContador() {
+  const { count, error } = await supabase
+    .from('info_acesso')
+    .select('*', { count: 'exact', head: true });
+
+  if (error) {
+    console.error('Erro ao contar visualizações:', error);
+    document.getElementById('contador-visitas').textContent = 'Erro ao carregar visitas';
+    return;
+  }
+
+  const contadorEl = document.getElementById('contador-visitas');
+  if (contadorEl) {
+    contadorEl.textContent = `👤 ${count} Visitantes`;
+  }
+}
+
+atualizarContador();
+
 
   
 </script>
