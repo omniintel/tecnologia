@@ -1,3 +1,4 @@
+
 =<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -74,7 +75,7 @@
 .carrossel {
   width: 100%;
   height: 0;
-  padding-bottom: 50%;
+  padding-bottom: 35%;
   position: relative;
   overflow: hidden;
   margin-bottom: 0;
@@ -93,128 +94,6 @@
   opacity: 1;
 }
 
-.conteudo-dinamico {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  width: 100%;
-  padding: 2rem;
-  box-sizing: border-box;
-}
-
-.lateral-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-  flex: 1;
-  max-width: 20%;
-  perspective: 1000px;
-}
-
-.box-lateral {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  width: 100%;
-  transform-style: preserve-3d;
-  animation: pulse 2s infinite ease-in-out;
-}
-
-@keyframes pulse {
-  0% {
-    transform: translateZ(0) scale(1);
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-  }
-  50% {
-    transform: translateZ(20px) scale(1.02);
-    box-shadow: 0 12px 48px rgba(31, 38, 135, 0.25);
-  }
-  100% {
-    transform: translateZ(0) scale(1);
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-  }
-}
-
-.box-lateral:hover {
-  transform: translateZ(30px) scale(1.05) rotateY(10deg);
-  box-shadow: 0 15px 35px rgba(31, 38, 135, 0.35);
-}
-
-.box-lateral img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  transform-style: preserve-3d;
-}
-
-.box-lateral:hover img {
-  transform: translateZ(20px) scale(1.1);
-}
-
-.principal-container {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  flex: 3;
-  align-items: stretch;
-  max-width: 100%;
-  padding: 0 1rem;
-  box-sizing: border-box;
-}
-
-.texto-container {
-  flex: 1;
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-  transition: transform 0.4s, box-shadow 0.4s;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.texto-container:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
-}
-
-.texto-container h2 {
-  color: var(--amarelo-escuro);
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
-.texto-container p {
-  color: var(--branco);
-  width: 100%;
-}
-
-.video-container {
-  flex: 1 1 100%;
-  border-radius: 50px;
-  overflow: hidden;
-  width: 100%;
-}
-
-.video-container video {
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: fill;
-  display: block;
-  min-width: 100%;
-}
-
 .parceiros {
   display: flex;
   flex-wrap: wrap;
@@ -223,6 +102,8 @@
   padding: 2rem;
   position: relative;
   text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
 }
 
 .parceiros h3 {
@@ -297,10 +178,11 @@
 
 .base {
   width: 100%;
-  padding: 3rem 2rem;
+  padding: 1rem 2rem;
   background: linear-gradient(to bottom, var(--azul-escuro), #0d1a36);
   color: var(--branco);
   font-family: 'Segoe UI', sans-serif;
+  margin-top: -5px;
 }
 
 .container-base {
@@ -338,6 +220,7 @@
   font-size: 1.1rem;
   line-height: 1.6;
   opacity: 0.9;
+  text-align: left;
 }
 
 .imagem-wrapper {
@@ -374,47 +257,19 @@
   opacity: 0.9;
 }
 
-/* Responsivo */
-@media (max-width: 1024px) {
-  .lateral-container {
-    display: none;
-  }
 
-  .principal-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .texto-container {
-    width: 100%;
-    max-width: 800px;
-    text-align: center;
-  }
-
-  .video-container {
-    width: 100%;
-    max-width: 800px;
-  }
-
-  .container-base {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  .texto-wrapper,
-  .imagem-wrapper {
-    flex: 1 1 50%;
-  }
-
-  .segmento {
-    margin-top: 1rem;
-  }
-}
 
 @media (max-width: 768px) {
+        .carrossel{
+      padding-bottom: 25%;
+  }
   .containerpart {
     width: 100%;
     margin-bottom: 1rem;
+  }
+
+  .base{
+      margin-top: -5px;
   }
 
   .container-base {
@@ -439,8 +294,11 @@
 </head>
 <body>
   <!-- Cabeçalho -->
+       <div class="vid-cabeça">
+    <video src="videoini.mp4" autoplay loop muted controlsList="nodownload nofullscreen noremoteplayback noplaybackrate" disablePictureInPicture></video> 
+    </div>
   <header class="cabeca">
-    <div class="header-container">
+       <div class="header-container">
       <button id="abremenu" class="menubotao">☰</button>
       <h1 class="tipage">OMNIINTEL</h1>
     </div>
@@ -458,6 +316,25 @@
       </div>
     </div>
   </header>
+
+          <div id="contador-visitas" style="
+  position: fixed;
+  top:clamp(45px, 53px, 120px);
+  right: 5px;
+  text-align: center;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  font-size: clamp(9px, 2vw, 14px);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  width: fit-content;
+  z-index: 1004;
+">
+  Visitantes: carregando...
+</div>
+
 
   <!-- Menu lateral -->
   <nav id="enimenu" class="menulat">
@@ -482,36 +359,42 @@
     
     <!-- Carrossel Topo -->
     <section class="carrossel" id="carrossel-topo">
-      <img src="slide4.jpeg" alt="Slide 1">
-      <img src="slide5.jpeg" alt="Slide 2">
       <img src="slide6.jpeg" alt="Slide 3">
     </section>
 
-    <!-- Bloco de conteúdo dinâmico -->
-    <section class="conteudo-dinamico">
-      
-      <!-- Lateral com anúncio -->
-      <div class="lateral-container" id="lateral-dinamica">
-        <div class="box-lateral">
-          <a href="https://www.instagram.com/nobre_arte.sr/" target="_blank">
-            <img src="anuncionobrearte.jpeg" alt="Anúncio Lateral">
-          </a>
+        <!-- Bloco base institucional -->
+    <section class="base">
+      <div class="container-base">
+        <div class="texto-wrapper">
+          <h4>Tecnologia que inspira. Soluções que conectam.</h4>
+          <p class="intro">
+            A Omniintel nasceu com um propósito claro: transformar ideias em experiências tecnológicas reais, criativas e acessíveis. Unindo inovação, design e inteligência prática, oferecemos soluções que vão além do esperado. Seja na criação de campanhas impactantes, no desenvolvimento de plataformas interativas ou na manutenção precisa de equipamentos de alto desempenho. A inspiração está em cada projeto, porque acreditamos que tecnologia boa é aquela que emociona, resolve e aproxima.
+          </p>
+        </div>
+        <div class="imagem-wrapper">
+          <img src="backgrouddesktop.jpeg" alt="Imagem representativa">
         </div>
       </div>
 
-      <!-- Bloco principal com texto e vídeo -->
-      <div class="principal-container">
-        <div class="texto-container">
-          <h2>Inovação e Tecnologia</h2>
-          <p>"<b>A melhor forma de prever o futuro é criá-lo</b>." — <a href="https://pt.wikipedia.org/wiki/Peter_Drucker" target="_blank" style="color: white;"><i>Peter Drucker</i></a></p>
-          <video src="videoini.mp4" autoplay loop muted controlsList="nodownload nofullscreen noremoteplayback noplaybackrate" disablePictureInPicture></video>
-        </div>
-      </div>
+      <div class="segmento">
+        <p>
+          Nossa atuação é multifacetada e estratégica. Trabalhamos com desenvolvimento de sites personalizados, produção visual criativa, campanhas publicitárias ousadas, automação de atendimento, sistemas interativos para espaços públicos e assistência técnica especializada em placas lógicas e equipamentos de alto desempenho.
 
+          A Omniintel não é apenas uma empresa — é um laboratório de ideias. Conectados com as tendências e os desafios do mundo moderno, entregamos soluções ágeis, eficientes e com um toque original que só quem vive tecnologia como arte consegue oferecer. Para nós, a conexão começa com propósito e se completa com resultados.
+        </p>
+      </div>
     </section>
 
+
     <!-- Parceiros -->
-    <section class="parceiros">
+
+
+    <!-- Segundo carrossel -->
+    <section class="carrossel" id="carrossel-base">
+      <img src="slide6.jpeg" alt="Slide 3">
+    </section>
+
+      <section class="parceiros">
       <h3>APOIO</h3>
 
       <div class="containerpart">
@@ -544,52 +427,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Segundo carrossel -->
-    <section class="carrossel" id="carrossel-base">
-      <img src="slide3.jpeg" alt="Slide 1">
-      <img src="slide2.jpeg" alt="Slide 2">
-      <img src="slide1.jpeg" alt="Slide 3">
-    </section>
-
-    <!-- Bloco base institucional -->
-    <section class="base">
-      <div class="container-base">
-        <div class="texto-wrapper">
-          <h4>Tecnologia que inspira. Soluções que conectam.</h4>
-          <p class="intro">
-            A Omniintel nasceu com um propósito claro: transformar ideias em experiências tecnológicas reais, criativas e acessíveis. Unindo inovação, design e inteligência prática, oferecemos soluções que vão além do esperado. Seja na criação de campanhas impactantes, no desenvolvimento de plataformas interativas ou na manutenção precisa de equipamentos de alto desempenho. A inspiração está em cada projeto, porque acreditamos que tecnologia boa é aquela que emociona, resolve e aproxima.
-          </p>
-        </div>
-        <div class="imagem-wrapper">
-          <img src="backgrouddesktop.jpeg" alt="Imagem representativa">
-        </div>
-      </div>
-
-      <div class="segmento">
-        <p>
-          Nossa atuação é multifacetada e estratégica. Trabalhamos com desenvolvimento de sites personalizados, produção visual criativa, campanhas publicitárias ousadas, automação de atendimento, sistemas interativos para espaços públicos e assistência técnica especializada em placas lógicas e equipamentos de alto desempenho.
-
-          A Omniintel não é apenas uma empresa — é um laboratório de ideias. Conectados com as tendências e os desafios do mundo moderno, entregamos soluções ágeis, eficientes e com um toque original que só quem vive tecnologia como arte consegue oferecer. Para nós, a conexão começa com propósito e se completa com resultados.
-        </p>
-      </div>
-    </section>
-
-        <div id="contador-visitas" style="
-  position: relative;
-  margin: 20px auto;
-  text-align: center;
-  background: rgba(0,0,0,0.6);
-  color: white;
-  font-size: 14px;
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-family: 'Segoe UI', sans-serif;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  width: fit-content;
-">
-  Visitantes: carregando...
-</div>
 
   </main>
 
