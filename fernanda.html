@@ -271,6 +271,7 @@
         padding: 0.75rem;
         text-transform: lowercase;
       }
+
            .container-perfis {
   display: flex;
   flex-direction: column;
@@ -419,8 +420,7 @@
     </div>
 
     <div class="grid-tetris" id="conteudoPerfil"></div>
-
-        <section class="container-perfis">
+    <section class="container-perfis">
   <div class="titulo-container">
     <h3>DESIGNERS QUE INSPIRAM</h3>
   </div>
@@ -477,7 +477,7 @@ async function carregarPerfil() {
     const { data, error } = await supabase
       .from('designerperfil')
       .select('titulo, capa_url, imagem_url, directw')
-      .eq('id', 3)
+      .eq('id', 2)
       .limit(1);
 
     const perfil = data?.[0];
@@ -512,7 +512,7 @@ async function carregarTetris() {
   const container = document.getElementById('conteudoPerfil');
   const screenWidth = container.clientWidth;
 
-  const { data, error } = await supabase.from('fernanda').select('imagem_url, titulo');
+  const { data, error } = await supabase.from('juan').select('imagem_url, titulo');
   if (error || !data?.length) {
     container.innerHTML = '<p style="text-align:center;">Nenhuma imagem encontrada.</p>';
     return;
