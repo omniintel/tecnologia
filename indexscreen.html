@@ -39,7 +39,7 @@
   top: 90px;
   height: 40px;
   background: #000;
-  padding: 4px 0;
+  padding: 1px 0;
   border-top: 2px solid #ff0000;
   border-bottom: 2px solid #ff0000;
   overflow: hidden;
@@ -137,11 +137,12 @@
 }
 
   .base {
-  width: 100%;
-  padding: 3rem 2rem;
-  background: linear-gradient(to bottom, var(--azul-escuro), #0d1a36);
-  color: var(--branco);
-  font-family: 'Segoe UI', sans-serif;
+    margin-top: 10; /* reduzido para ficar mais próximo ao letreiro */
+    width: 100%;
+    padding: 3rem 2rem;
+    background: linear-gradient(to bottom, var(--azul-escuro), #0d1a36);
+    color: var(--branco);
+    font-family: 'Segoe UI', sans-serif;
 }
 
 .container-base {
@@ -217,6 +218,8 @@
 
 /* === Responsivo === */
 @media (max-width: 1024px) {
+
+  
   .container-base {
     flex-direction: row;
     flex-wrap: wrap;
@@ -585,6 +588,12 @@
 
 .carrossel img.active {
     opacity: 1;
+}
+
+@media (min-width: 1025px) {
+  .base {
+    margin-top: 80px; /* espaço suficiente para o letreiro */
+  }
 }
 
     </style>
