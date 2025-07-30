@@ -371,7 +371,7 @@ document.addEventListener('DOMContentLoaded', carregarInspiracao);
     data.forEach(perfil => {
       container.innerHTML += `
         <ul class="perfil">
-          <li><a href="${perfil.url}" target="_blank"><img src="${perfil.imagem_url}" alt="${perfil.titulo}"></a></li>
+          <li><a href="${perfil.url}"><img src="${perfil.imagem_url}" alt="${perfil.titulo}"></a></li>
           <li class="titulo">${perfil.titulo}</li>
         </ul>`;
     });
