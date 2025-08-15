@@ -428,151 +428,73 @@
       </div>
     </section>
 
-    <!-- Botão flutuante de atendimento -->
-<!-- CHAT: botão flutuante (lado esquerdo) + popup com fallback -->
 <style>
-  #omni-chat-btn {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;            /* LADO ESQUERDO */
-    background: var(--amarelo, #ffc107);
-    color: #000;
-    font-weight: 700;
-    padding: 12px 18px;
-    border-radius: 50px;
-    box-shadow: 0 4px 8px rgba(0,0,0,.3);
-    cursor: pointer;
-    z-index: 10050;        /* acima de tudo do site */
-    transition: transform .2s ease, box-shadow .2s ease;
-    user-select: none;
-  }
-  #omni-chat-btn:hover { transform: scale(1.05); box-shadow: 0 6px 14px rgba(0,0,0,.35); }
-
-  #omni-chat-popup {
-    position: fixed;
-    bottom: 80px;
-    left: 20px;            /* LADO ESQUERDO */
-    right: auto;
-    width: 360px;
-    height: 520px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 12px 28px rgba(0,0,0,.45);
-    overflow: hidden;
-    display: none;
-    flex-direction: column;
-    z-index: 10060;
-  }
-  #omni-chat-popup header {
-    background: var(--amarelo, #ffc107);
-    padding: 10px 12px;
-    font-weight: 700;
-    color: #000;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  #omni-chat-popup header .close {
-    background: transparent; border: none; font-size: 20px; line-height: 1;
-    cursor: pointer; padding: 4px 8px;
-  }
-  #omni-chat-frame { flex: 1; border: 0; width: 100%; height: 100%; display: none; }
-
-  /* Fallback quando o site impedir embed em iframe */
-  #omni-chat-fallback {
-    flex: 1; display: none; padding: 16px; gap: 12px; 
-    align-items: center; justify-content: center; text-align: center;
-  }
-  #omni-chat-fallback a {
-    display: inline-block; padding: 10px 14px; border-radius: 10px;
-    background: #111; color: #fff; text-decoration: none; font-weight: 600;
-  }
-
-  /* Responsivo */
-  @media (max-width: 480px) {
-    #omni-chat-popup { width: min(95vw, 380px); height: 65vh; left: 10px; bottom: 90px; }
-  }
+#chat-box {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+}
+#chat-messages {
+  padding: 10px;
+  flex: 1;
+  overflow-y: auto;
+  height: 250px;
+}
+#chat-input {
+  display: flex;
+  border-top: 1px solid #ccc;
+}
+#chat-input input {
+  flex: 1;
+  padding: 8px;
+  border: none;
+}
+#chat-input button {
+  background: #ffc107;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: bold;
+}
 </style>
 
-<div id="omni-chat-btn" aria-controls="omni-chat-popup" aria-expanded="false" title="Atendimento">
-  💬 Atendimento
-</div>
-
-<div id="omni-chat-popup" role="dialog" aria-label="Atendimento Online">
-  <header>
-    <span>Atendimento Online</span>
-    <button class="close" type="button" aria-label="Fechar">×</button>
-  </header>
-
-  <iframe
-    id="omni-chat-frame"
-    allow="camera; microphone; autoplay; clipboard-read; clipboard-write"
-    referrerpolicy="no-referrer-when-downgrade"
-    allowfullscreen
-  ></iframe>
-
-  <div id="omni-chat-fallback">
-    <div>
-      <p>Não foi possível carregar o chat aqui (bloqueado pelo site externo).</p>
-      <p><a id="omni-chat-open-new" target="_blank" rel="noopener">Abrir em nova aba</a></p>
-    </div>
+<div id="chat-box">
+  <div id="chat-messages"></div>
+  <div id="chat-input">
+    <input type="text" id="msg" placeholder="Digite sua mensagem...">
+    <button onclick="sendMsg()">Enviar</button>
   </div>
 </div>
 
 <script>
-(() => {
-  const CHAT_URL = "https://omniintel.app.n8n.cloud/webhook/c4bee10b-ac51-4170-8dfe-3f14f39041d7/chat";
+async function sendMsg() {
+  const msg = document.getElementById("msg").value.trim();
+  if (!msg) return;
 
-  const btn     = document.getElementById("omni-chat-btn");
-  const popup   = document.getElementById("omni-chat-popup");
-  const iframe  = document.getElementById("omni-chat-frame");
-  const fallback= document.getElementById("omni-chat-fallback");
-  const linkOut = document.getElementById("omni-chat-open-new");
-  const closeBt = popup.querySelector(".close");
+  // mostra no chat
+  const chat = document.getElementById("chat-messages");
+  chat.innerHTML += `<div><strong>Você:</strong> ${msg}</div>`;
+  document.getElementById("msg").value = "";
 
-  let tried = false;       // evita recarregar o iframe a cada clique
-  let loaded = false;
+  // envia para o webhook do n8n
+  const resp = await fetch("https://SEU_SUBDOMINIO.n8n.cloud/webhook/chat-atendimento", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ mensagem: msg })
+  });
 
-  linkOut.href = CHAT_URL;
-
-  function openPopup() {
-    popup.style.display = "flex";
-    btn.setAttribute("aria-expanded", "true");
-
-    if (!tried) {
-      tried = true;
-      loaded = false;
-      iframe.style.display = "none";
-      fallback.style.display = "none";
-      iframe.src = CHAT_URL;
-
-      // Se carregar, mostramos o iframe.
-      iframe.addEventListener("load", () => {
-        loaded = true;
-        iframe.style.display = "block";
-        fallback.style.display = "none";
-      }, { once: true });
-
-      // Timeout: se não carregar (ex.: X-Frame-Options/ frame-ancestors), mostra fallback.
-      setTimeout(() => {
-        if (!loaded) {
-          iframe.style.display = "none";
-          fallback.style.display = "flex";
-        }
-      }, 3000);
-    }
-  }
-
-  function closePopup() {
-    popup.style.display = "none";
-    btn.setAttribute("aria-expanded", "false");
-  }
-
-  // Clique no botão abre
-  btn?.addEventListener("click", openPopup);
-  // Fechar
-  closeBt?.addEventListener("click", closePopup);
-  // Esc fecha
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && popup.style.display === "flex") closePopup(); });
-})();
+  const data = await resp.json();
+  chat.innerHTML += `<div><strong>Bot:</strong> ${data.resposta}</div>`;
+  chat.scrollTop = chat.scrollHeight;
+}
 </script>
 
 
@@ -811,5 +733,6 @@ atualizarContador();
   
 </script>
 </html>
+
 
 
