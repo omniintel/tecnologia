@@ -428,74 +428,7 @@
       </div>
     </section>
 
-<style>
-#chat-box {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 300px;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  display: flex;
-  flex-direction: column;
-  font-family: sans-serif;
-}
-#chat-messages {
-  padding: 10px;
-  flex: 1;
-  overflow-y: auto;
-  height: 250px;
-}
-#chat-input {
-  display: flex;
-  border-top: 1px solid #ccc;
-}
-#chat-input input {
-  flex: 1;
-  padding: 8px;
-  border: none;
-}
-#chat-input button {
-  background: #ffc107;
-  border: none;
-  padding: 8px 12px;
-  cursor: pointer;
-  font-weight: bold;
-}
-</style>
 
-<div id="chat-box">
-  <div id="chat-messages"></div>
-  <div id="chat-input">
-    <input type="text" id="msg" placeholder="Digite sua mensagem...">
-    <button onclick="sendMsg()">Enviar</button>
-  </div>
-</div>
-
-<script>
-async function sendMsg() {
-  const msg = document.getElementById("msg").value.trim();
-  if (!msg) return;
-
-  // mostra no chat
-  const chat = document.getElementById("chat-messages");
-  chat.innerHTML += `<div><strong>Você:</strong> ${msg}</div>`;
-  document.getElementById("msg").value = "";
-
-  // envia para o webhook do n8n
-  const resp = await fetch("https://SEU_SUBDOMINIO.n8n.cloud/webhook/chat-atendimento", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ mensagem: msg })
-  });
-
-  const data = await resp.json();
-  chat.innerHTML += `<div><strong>Bot:</strong> ${data.resposta}</div>`;
-  chat.scrollTop = chat.scrollHeight;
-}
-</script>
 
 
   </main>
@@ -733,6 +666,7 @@ atualizarContador();
   
 </script>
 </html>
+
 
 
 
