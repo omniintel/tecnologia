@@ -56,6 +56,7 @@
         .header {
             width: 100%;
             overflow-x: hidden;
+            overflow-y: hidden;
         }
         
         .nav {
@@ -66,7 +67,6 @@
             padding: 14px 20px;
             display: flex;
             flex-wrap: wrap;
-            /* evita estouro em telas menores */
             justify-content: space-between;
             gap: 16px;
         }
@@ -139,6 +139,44 @@
         .btn.primary:hover {
             background: var(--brand-2);
             transform: translateY(-1px)
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 10px 16px;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .btn {
+                padding: 8px 14px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav {
+                padding: 8px 12px;
+            }
+
+            .brand {
+                font-size: 14px;
+            }
+
+            .nav-links {
+                gap: 8px;
+            }
+
+            .btn {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+
+            .nav a {
+                font-size: 13px;
+            }
         }
         
         .btn.ghost {
