@@ -1,648 +1,393 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Agente de IA para Barbearias — O fim das chamadas perdidas</title>
-    <meta name="description" content="Transforme seu atendimento com um agente de IA 24/7 que agenda clientes, responde dúvidas e nunca perde uma oportunidade." />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-         :root {
-            --bg: #0f2c25;
-            /* verde profundo para seções escuras */
-            --bg-2: #132f27;
-            /* variação */
-            --card: #ffffff;
-            /* cards claros */
-            --text: #0b1612;
-            /* texto escuro */
-            --muted: #5a6b64;
-            /* texto suave */
-            --brand: #254d3f;
-            /* botões */
-            --brand-2: #2d6a50;
-            /* hover */
-            --accent: #d6e7df;
-            /* detalhes */
-            --ring: #a6c9ba;
-            /* foco */
-            --container: 1120px;
-            --radius: 16px;
-            --shadow: 0 10px 30px rgba(0, 0, 0, .08);
-            --shadow-strong: 0 18px 50px rgba(12, 38, 28, .35);
-        }
-        
-        * {
-            box-sizing: border-box
-        }
-        
-        html {
-            scroll-behavior: smooth
-        }
-        
-        body {
-            margin: 0;
-            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-            color: var(--text);
-            line-height: 1.6;
-            background: #f7faf8;
-        }
-        /* Header */
-        /* Prevenção de overflow no header */
-        
-        .header {
-            width: 100%;
-            overflow-x: hidden;
-            overflow-y: hidden;
-        }
-        
-        .nav {
-            width: 100%;
-            box-sizing: border-box;
-            max-width: var(--container);
-            margin: 0 auto;
-            padding: 14px 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 16px;
-        }
-        
-        .header {
-            position: sticky;
-            top: 0;
-            z-index: 40;
-            backdrop-filter: saturate(1.2) blur(10px);
-            background: rgba(247, 250, 248, .85);
-            border-bottom: 1px solid rgba(16, 52, 40, .08);
-        }
-        
-        .nav {
-            max-width: var(--container);
-            margin: auto;
-            padding: 14px 20px;
-            display: flex;
-            gap: 16px;
-            align-items: center;
-            justify-content: space-between
-        }
-        
-        .brand {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            font-weight: 700;
-            letter-spacing: .2px
-        }
-        
-        .brand .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 999px;
-            background: linear-gradient(135deg, var(--brand-2), #4aa77f)
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            align-items: center
-        }
-        
-        .nav a {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 500
-        }
-        
-        .btn {
-            appearance: none;
-            border: 0;
-            border-radius: 14px;
-            padding: 12px 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: .25s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px
-        }
-        
-        .btn.primary {
-            background: var(--brand);
-            color: #fff;
-            box-shadow: var(--shadow-strong)
-        }
-        
-        .btn.primary:hover {
-            background: var(--brand-2);
-            transform: translateY(-1px)
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agente de IA para Barbearias — Versão Premium</title>
+  <meta name="description" content="Atendimento 24/7 que agenda, confirma e fideliza. Zere chamadas perdidas e lote a agenda com um agente de IA preparado para barbearias." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <meta property="og:title" content="Agente de IA para Barbearias — Versão Premium">
+  <meta property="og:description" content="Atendimento 24/7 que agenda, confirma e fideliza. Zere chamadas perdidas e lote a agenda com um agente de IA preparado para barbearias.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://source.unsplash.com/1600x900/?barbershop">
+  <meta name="theme-color" content="#0f1f1a">
 
-        @media (max-width: 768px) {
-            .nav {
-                padding: 10px 16px;
-            }
+  <!-- n8n Chat CSS (mantido no <head> para evitar FOUC) -->
+  <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 
-            .nav-links {
-                gap: 12px;
-            }
+  <style>
+    :root{
+      --bg-1:#0c1915; /* fundo profundo */
+      --bg-2:#0e221b; /* gradiente */
+      --ink:#0b1612; /* texto escuro para cards claros */
+      --muted:#8aa79c; /* texto suave */
+      --card:#0f221c; /* cards dark */
+      --card-ink:#e8f2ee; /* texto primário nos cards */
+      --brand-1:#29a37e; /* teal */
+      --brand-2:#5fe3b6; /* teal light */
+      --accent:#e9f7f1; /* detalhes / bordas claras */
+      --gold:#d4a657; /* acento premium */
+      --radius:18px;
+      --shadow: 0 16px 60px rgba(0,0,0,.25);
+      --container: 1180px;
 
-            .btn {
-                padding: 8px 14px;
-                font-size: 14px;
-            }
-        }
+      /* Theming do widget n8n (@n8n/chat) */
+      --chat--color-primary: var(--brand-1);
+      --chat--color-secondary: var(--brand-2);
+      --chat--color-dark:#0c1915;
+      --chat--color-white:#ffffff;
+      --chat--toggle--size:56px;
+      --chat--window--width:420px;
+      --chat--window--height:600px;
+      --chat--border-radius:16px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.5;color:#eaf7f1;background:linear-gradient(180deg,var(--bg-1),var(--bg-2));}
 
-        @media (max-width: 480px) {
-            .nav {
-                padding: 8px 12px;
-            }
+    /* ===== Header ===== */
+    .header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(1.2) blur(10px);background:rgba(12,18,15,.6);border-bottom:1px solid rgba(255,255,255,.06)}
+    .nav{max-width:var(--container);margin:auto;padding:14px 20px;display:flex;align-items:center;gap:16px;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px;text-decoration:none;color:#e8f2ee}
+    .logo{width:28px;height:28px;border-radius:8px;box-shadow:0 6px 18px rgba(41,163,126,.35);background:conic-gradient(from 180deg at 50% 50%, var(--brand-1), var(--brand-2), #64ffd3, var(--brand-1));}
+    .nav-links{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+    .nav-links a{color:#cfe6de;text-decoration:none;font-weight:600;opacity:.9}
+    .btn{appearance:none;border:0;border-radius:14px;padding:12px 18px;font-weight:700;cursor:pointer;transition:.25s ease;display:inline-flex;align-items:center;gap:10px}
+    .btn.primary{background:linear-gradient(90deg,var(--brand-1),var(--brand-2));color:#08261d;box-shadow:0 12px 30px rgba(41,163,126,.35)}
+    .btn.primary:hover{transform:translateY(-1px) scale(1.01)}
+    .btn.ghost{background:transparent;color:#dff7ee;outline:1px solid rgba(95,227,182,.4);text-decoration:none}
+    .btn.ghost:hover{background:rgba(95,227,182,.08)}
 
-            .brand {
-                font-size: 14px;
-            }
+    /* ===== Hero ===== */
+    .hero{position:relative;isolation:isolate;min-height:78vh;display:grid;place-items:center;padding:96px 20px 64px;overflow:hidden}
+    .hero video{position:absolute;inset:0;object-fit:cover;width:100%;height:100%;filter:grayscale(.1) contrast(1.05) brightness(.7);z-index:-2}
+    .hero::after{content:"";position:absolute;inset:0;background:radial-gradient(1200px 600px at 50% -200px, rgba(41,163,126,.25), transparent 60%);z-index:-1}
+    .hero-inner{max-width:980px;text-align:center}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(95,227,182,.1);border:1px solid rgba(95,227,182,.25);font-weight:700;color:#dff7ee}
+    .hero h1{margin:14px 0 10px;font-size:clamp(28px,4.6vw,56px);line-height:1.05}
+    .hero p{margin:0 auto 22px;max-width:760px;color:#d1e7df}
+    .hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 
-            .nav-links {
-                gap: 8px;
-            }
+    /* Floating chips (randomização via JS; sem CSS random()) */
+    .chips{position:absolute;bottom:0;left:0;right:0;height:100vh;pointer-events:none;overflow:hidden}
+    .chip{position:absolute;padding:8px 12px;border-radius:12px;background:rgba(239,255,250,.08);border:1px solid rgba(239,255,250,.2);backdrop-filter:blur(6px);animation:float-up 12s linear infinite;will-change:transform,opacity}
+    @keyframes float-up {
+      0% {bottom:-55px;opacity:0;transform:translateX(-20px) rotate(0deg)}
+      5% {opacity:1}
+      85% {opacity:0}
+      100% {bottom:100vh;opacity:0;transform:translateX(20px) rotate(360deg)}
+    }
 
-            .btn {
-                padding: 6px 12px;
-                font-size: 13px;
-            }
+    /* ===== Sections ===== */
+    .section{padding:72px 20px}
+    .container{max-width:var(--container);margin:auto}
 
-            .nav a {
-                font-size: 13px;
-            }
-        }
-        
-        .btn.ghost {
-            background: transparent;
-            color: var(--brand-2);
-            outline: 1px solid rgba(45, 106, 80, .25)
-        }
-        
-        .btn.ghost:hover {
-            background: #ecf4f0
-        }
-        /* Hero */
-        
-        .hero {
-            padding: 96px 20px 72px;
-            text-align: center;
-            background: radial-gradient(1200px 600px at 50% -200px, #e6f1ec, transparent 60%), #f7faf8
-        }
-        
-        .hero h1 {
-            margin: 0 auto;
-            max-width: 900px;
-            font-size: clamp(28px, 4vw, 44px);
-            line-height: 1.15
-        }
-        
-        .hero .sub {
-            font-weight: 800;
-            color: #876;
-        }
-        
-        .hero p.lead {
-            max-width: 760px;
-            margin: 14px auto 26px;
-            color: var(--muted)
-        }
-        
-        .hero .cta {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap
-        }
-        /* Three cards */
-        
-        .section {
-            padding: 56px 20px
-        }
-        
-        .container {
-            max-width: var(--container);
-            margin: auto
-        }
-        
-        .kpis {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px
-        }
-        
-        .card {
-            background: var(--card);
-            border-radius: var(--radius);
-            padding: 22px;
-            box-shadow: var(--shadow);
-            border: 1px solid #eef2ef
-        }
-        
-        .card h4 {
-            margin: 8px 0 6px;
-            font-size: 16px
-        }
-        
-        .card p {
-            margin: 0;
-            color: var(--muted);
-            font-size: 14px
-        }
-        
-        .icon {
-            width: 38px;
-            height: 38px;
-            display: grid;
-            place-items: center;
-            border-radius: 12px;
-            background: #ecf4f0;
-            color: var(--brand-2)
-        }
-        /* Solution Tabs */
-        
-        .solution {
-            background: #fbfdfc
-        }
-        
-        .tabs {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            margin-bottom: 18px;
-            flex-wrap: wrap
-        }
-        
-        .tab-btn {
-            border: 1px solid #dfeae5;
-            padding: 10px 14px;
-            border-radius: 12px;
-            background: white;
-            cursor: pointer;
-            font-weight: 600
-        }
-        
-        .tab-btn[aria-selected="true"] {
-            background: #1f4135;
-            color: #fff;
-            border-color: #1f4135
-        }
-        
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px
-        }
-        
-        .feat {
-            border-radius: 14px;
-            border: 1px dashed #dfeae5;
-            padding: 16px;
-            background: #fff
-        }
-        
-        .feat b {
-            display: block;
-            margin-bottom: 6px
-        }
-        /* Impact */
-        
-        .impact {
-            padding: 64px 20px
-        }
-        
-        .impact .chart-wrap {
-            max-width: 760px;
-            margin: 22px auto 0;
-            background: white;
-            border-radius: 18px;
-            border: 1px solid #e7efe9;
-            padding: 20px;
-            box-shadow: var(--shadow)
-        }
-        
-        .chart {
-            display: grid;
-            grid-template-rows: 1fr auto;
-            gap: 14px
-        }
-        
-        .bars {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 14px;
-            align-items: end;
-            height: 240px
-        }
-        
-        .bar {
-            border-radius: 10px 10px 0 0;
-            background: linear-gradient(180deg, #3a6b57, #1f4135);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, .3)
-        }
-        
-        .bar.secondary {
-            background: linear-gradient(180deg, #cbdad3, #8fb7a5)
-        }
-        
-        .labels {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 14px;
-            text-align: center;
-            font-size: 12px;
-            color: var(--muted)
-        }
-        /* CTA footer */
-        
-        .cta-band {
-            background: linear-gradient(160deg, var(--bg), var(--bg-2));
-            color: #fff;
-            padding: 64px 20px
-        }
-        
-        .cta-band .wrap {
-            max-width: 900px;
-            margin: auto;
-            text-align: center
-        }
-        
-        .cta-band h2 {
-            margin: 0 0 10px;
-            font-size: clamp(22px, 3.4vw, 34px)
-        }
-        
-        .cta-band p {
-            margin: 0 0 22px;
-            opacity: .9
-        }
-        /* Footer */
-        
-        footer {
-            padding: 18px 20px;
-            text-align: center;
-            color: #cfe0d8;
-            background: var(--bg);
-            border-top: 1px solid rgba(255, 255, 255, .06)
-        }
-        /* Responsive */
-        
-        @media (max-width: 900px) {
-            .kpis {
-                grid-template-columns: 1fr
-            }
-            .grid {
-                grid-template-columns: 1fr
-            }
-        }
-        /* Telas médias – ajusta apenas espaçamentos e fontes */
-        
-        @media (max-width: 900px) {
-            .nav {
-                padding: 14px 16px;
-            }
-            .hero {
-                padding: 80px 16px 60px;
-            }
-            .hero h1 {
-                font-size: clamp(24px, 5vw, 40px);
-            }
-            .hero p.lead {
-                font-size: 16px;
-            }
-            .container {
-                padding: 0 16px;
-            }
-            .bars {
-                gap: 10px;
-            }
-            .labels {
-                gap: 10px;
-                font-size: 12px;
-            }
-        }
-        /* Telas menores – ajusta apenas largura mínima e espaço entre elementos */
-        
-        @media (max-width: 600px) {
-            .kpis {
-                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            }
-            .grid {
-                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            }
-            .hero .cta {
-                gap: 8px;
-            }
-            .btn {
-                font-size: 15px;
-                padding: 10px 16px;
-            }
-            .tab-btn {
-                font-size: 14px;
-                padding: 8px 12px;
-            }
-            .chart-wrap {
-                padding: 16px;
-            }
-            .bars {
-                height: 180px;
-                gap: 8px;
-            }
-            .labels {
-                font-size: 11px;
-            }
-            .cta-band h2 {
-                font-size: clamp(20px, 5vw, 30px);
-            }
-            .cta-band p {
-                font-size: 14px;
-            }
-        }
-    </style>
+    /* Value Props */
+    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);transform-style:preserve-3d;transition:transform .3s ease, box-shadow .3s ease}
+    .card:hover{transform:translateY(-4px) rotateX(3deg) rotateY(-3deg)}
+    .card h4{margin:6px 0 6px;font-size:18px;color:#f2fffb}
+    .card p{margin:0;color:#bcd8cf}
+    .icon{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(135deg,rgba(95,227,182,.2),rgba(95,227,182,.05));color:#62e7ba;border:1px solid rgba(98,231,186,.35)}
+
+    /* Media Collage */
+    .media{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:stretch}
+    .tile{position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:#0a1612}
+    .tile img,.tile video{width:100%;height:100%;object-fit:cover;display:block}
+    .tile .shine{position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(255,255,255,.08),transparent);transform:translateX(-100%);}
+    .tile:hover .shine{animation:shine 1s ease}
+    @keyframes shine{to{transform:translateX(100%)}}
+
+    /* Solution Tabs */
+    .tabs{display:flex;gap:8px;justify-content:center;margin:0 0 18px;flex-wrap:wrap}
+    .tab-btn{border:1px solid rgba(255,255,255,.12);padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.06);cursor:pointer;font-weight:700;color:#e9fff7}
+    .tab-btn[aria-selected="true"]{background:linear-gradient(90deg,var(--brand-1),var(--brand-2));color:#07231b;border-color:transparent}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .feat{border-radius:14px;border:1px dashed rgba(255,255,255,.18);padding:16px;background:rgba(255,255,255,.03);color:#d9efe8}
+    .feat b{display:block;margin-bottom:6px;color:#f1fff9}
+
+    /* Impact */
+    .impact .chart-wrap{max-width:820px;margin:22px auto 0;background:rgba(255,255,255,.03);border-radius:18px;border:1px solid rgba(255,255,255,.12);padding:20px;box-shadow:var(--shadow)}
+    .chart{display:grid;grid-template-rows:1fr auto;gap:14px}
+    .bars{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;align-items:end;height:260px}
+    .bar{border-radius:10px 10px 0 0;background:linear-gradient(180deg,#58d9b2,#17936f)}
+    .bar.secondary{background:linear-gradient(180deg,#97b8ad,#4a7b6a)}
+    .labels{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;text-align:center;font-size:12px;color:#bcd8cf}
+
+    /* CTA */
+    .cta-band{background:linear-gradient(160deg,#0b1814,#0f241d);color:#eafff7;padding:72px 20px;border-top:1px solid rgba(255,255,255,.06)}
+    .cta-band .wrap{max-width:900px;margin:auto;text-align:center}
+    .cta-band h2{margin:0 0 10px;font-size:clamp(22px,3.4vw,36px)}
+    .cta-band p{margin:0 0 22px;opacity:.92}
+
+    footer{padding:18px 20px;text-align:center;color:#a6c3ba;border-top:1px solid rgba(255,255,255,.06)}
+
+    /* Lightbox */
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;padding:20px;z-index:60}
+    .lightbox.open{display:flex}
+    .lightbox-inner{width:min(100%,960px);aspect-ratio:16/9;border-radius:16px;overflow:hidden;box-shadow:var(--shadow);background:#000}
+    .lightbox button{position:absolute;top:24px;right:24px}
+
+    /* Scroll Reveal */
+    .reveal{opacity:0;transform:translate3d(0,20px,0) scale(.98);transition:opacity .6s ease, transform .6s ease}
+    .reveal.in{opacity:1;transform:translate3d(0,0,0) scale(1)}
+
+    /* Responsivo */
+    @media (max-width: 980px){
+      .kpis{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr}
+      .media{grid-template-columns:1fr;}
+      .hero{min-height:72vh}
+    }
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none!important;transition:none!important}
+      .hero video{filter:none}
+    }
+
+    /* Garante que o toggle do chat fique acima de tudo */
+    .n8n-chat-toggle, .n8n-chat-window { z-index: 80 !important; }
+  </style>
 </head>
-
 <body>
-<!-- Header -->
-<header class="header" role="banner">
+  <!-- Header -->
+  <header class="header" role="banner">
     <nav class="nav" aria-label="Principal">
-        <a class="brand" href="#top" aria-label="Agente de IA">
-            <span class="dot" aria-hidden="true"></span> Agente de IA
-        </a>
-        <div class="nav-links">
-            <a href="#desafio">Desafio</a>
-            <a href="#solucao">Solução</a>
-            <a href="#impacto">Impacto</a>
-            <a class="btn primary" href="https://wa.me/5555920005470?text=Ol%C3%A1%2C%20gostaria%20de%20testar%20um%20modelo%20de%20atendimento%20para%20minha%20barbearia!">Agendar Demonstração</a>
-        </div>
+      <a class="brand" href="#top" aria-label="Agente de IA">
+        <span class="logo" aria-hidden="true"></span>
+        Agente de IA
+      </a>
+      <div class="nav-links">
+        <a class="btn primary" href="https://wa.me/5555920005470?text=Ol%C3%A1%2C%20quero%20um%20piloto%20do%20Agente%20de%20IA%20para%20minha%20barbearia!">Entrar em Contato</a>
+        <a href="#desafio">Diferencial</a>
+        <a href="#solucao">Solução</a>
+        <a href="#impacto">Impacto</a>
+      </div>
     </nav>
-</header>
+  </header>
 
-<!-- Hero -->
-<section class="hero" id="top">
-    <h1>
-        <span style="color:#1f4135">Diga Adeus às Chamadas Perdidas</span>.<br>
-        <span class="sub" style="color:#1f4135; opacity:.9">E dê boas-vindas à Eficiência Total.</span>
-    </h1>
-    <p class="lead">Automatize seu atendimento com um agente virtual que nunca para: agenda clientes, responde perguntas e garante que nenhuma oportunidade escape.</p>
-    <div class="cta">
-        <a class="btn ghost" href="#solucao">Descubra como funciona</a>
+  <section class="hero" id="top">
+<video autoplay muted loop playsinline poster="https://source.unsplash.com/1600x900/?barbershop,chairs" aria-hidden="true"> <!-- Vídeo público de demonstração (troque por filmagens do seu espaço quando quiser) --> <source src="vidini.mp4" type="video/mp4"> </video>
+    <div class="hero-inner reveal">
+      <span class="eyebrow">Barbearia 24/7 • SLA: zero chamada perdida</span>
+      <h1>Atendimento que escala sozinho. <span style="color:var(--brand-2)">Agenda lotada, sem fricção.</span></h1>
+      <p>Um agente de IA OmniChannel que agenda, confirma, reengaja e responde no WhatsApp — alinhado ao seu playbook. Time-to-value em dias, não meses.</p>
+      <div class="hero-cta">
+        <a class="btn ghost" href="https://wa.me/5555920005470?text=Olá,%20gostaria%20de%20mais%20informações%20sobre%20o%20agente%20de%20IA%20para%20barbearias.%20" rel="noopener">Saber mais</a>
+      </div>
     </div>
-</section>
 
-<!-- Desafio -->
-<section class="section" id="desafio" aria-labelledby="title-desafio">
+    <div class="chips" aria-hidden="true">
+      <div class="chip">+30% taxa de retorno</div>
+      <div class="chip">-70% trabalho manual</div>
+      <div class="chip">NPS ↑</div>
+    </div>
+  </section>
+
+  <!-- Desafio / Value Props -->
+  <section class="section" id="desafio" aria-labelledby="title-desafio">
     <div class="container">
-        <h2 id="title-desafio" style="text-align:center; margin:0 0 18px">Os Obstáculos Diários da Sua Barbearia</h2>
-        <p style="text-align:center; color:var(--muted); max-width:820px; margin:0 auto 24px">Cada interrupção para atender uma ligação ou responder mensagens compromete a experiência no salão e pode significar uma venda a menos.</p>
-        <div class="kpis" role="list">
-            <article class="card" role="listitem">
-                <div class="icon" aria-hidden="true">📵</div>
-                <h4>Agendamentos Perdidos</h4>
-                <p>Clientes sem resposta imediata procuram alternativas. Uma ligação não atendida representa receita perdida.</p>
-            </article>
-            <article class="card" role="listitem">
-                <div class="icon" aria-hidden="true">✂️</div>
-                <h4>Interrupções Constantes</h4>
-                <p>Barbeiros que precisam parar para agendar compromissos perdem foco e qualidade no atendimento.</p>
-            </article>
-            <article class="card" role="listitem">
-                <div class="icon" aria-hidden="true">⏰</div>
-                <h4>Atendimento Limitado</h4>
-                <p>Seus serviços estão disponíveis apenas no horário comercial. E os contatos fora dele? São oportunidades desperdiçadas.</p>
-            </article>
-        </div>
+      <h2 id="title-desafio" style="text-align:center; margin:0 0 18px">O gargalo do atendimento não é gente — é processo</h2>
+      <p style="text-align:center; color:#cde4db; max-width:860px; margin:0 auto 24px">Cada chamada perdida vira churn silencioso. Cada interrupção do barbeiro derruba a experiência na cadeira. O agente orquestra o fluxo end-to-end e libera sua equipe para o que importa: executar com excelência.</p>
+      <div class="kpis" role="list">
+        <article class="card reveal" role="listitem">
+          <div class="icon" aria-hidden="true">📵</div>
+          <h4>Sem chamadas perdidas</h4>
+          <p>Resposta instantânea 24/7, inclusive fora do horário. Prioriza intenção de compra e captura o lead com contexto.</p>
+        </article>
+        <article class="card reveal" role="listitem">
+          <div class="icon" aria-hidden="true">✂️</div>
+          <h4>Barbeiro focado no cliente</h4>
+          <p>Nada de parar para agendar. O agente negocia horários, confirmações e encaixes sem fricção.</p>
+        </article>
+        <article class="card reveal" role="listitem">
+          <div class="icon" aria-hidden="true">📈</div>
+          <h4>CAC mais baixo, LTV maior</h4>
+          <p>Follow-up automático, lembretes D-1/D-0 e reativação de inativos. Agenda cheia vira receita previsível.</p>
+        </article>
+      </div>
     </div>
-</section>
+  </section>
 
-<!-- Solução -->
-<section class="section solution" id="solucao" aria-labelledby="title-solucao">
+  <!-- Solução -->
+  <section class="section" id="solucao" aria-labelledby="title-solucao">
     <div class="container">
-        <h2 id="title-solucao" style="text-align:center; margin:0 0 8px">Mais que um Chatbot: Um Agente Inteligente</h2>
-        <p style="text-align:center; color:var(--muted); max-width:820px; margin:0 auto 22px">Desenvolvido com inteligência avançada, nosso agente compreende, interage e executa tarefas com precisão — do início ao fim.</p>
+      <h2 id="title-solucao" style="text-align:center; margin:0 0 8px">Não é chatbot. É agente com execução de ponta a ponta</h2>
+      <p style="text-align:center; color:#cde4db; max-width:860px; margin:0 auto 22px">Entende intenção, consulta agenda, resolve exceções e aprende com cada conversa. Conecta seu funil ao caixa.</p>
 
-        <div class="tabs" role="tablist" aria-label="Funcionalidades">
-            <button class="tab-btn" role="tab" aria-selected="true" aria-controls="pane1" id="tab1">Fluxos Inteligentes</button>
-            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="pane2" id="tab2">Automação Completa</button>
-            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="pane3" id="tab3">Experiência Real</button>
+      <div class="tabs" role="tablist" aria-label="Funcionalidades do agente">
+        <button class="tab-btn" role="tab" aria-selected="true" aria-controls="pane1" id="tab1">Fluxos inteligentes</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="pane2" id="tab2">Automação</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="pane3" id="tab3">Simulação</button>
+      </div>
+
+      <div class="tab-panels">
+        <div id="pane1" role="tabpanel" aria-labelledby="tab1">
+          <div class="grid">
+            <div class="feat reveal"><b>Agendamento 24/7</b> Consulta disponibilidade por barbeiro, serviço e duração. Reagenda e confirma com um toque.</div>
+            <div class="feat reveal"><b>Gestão de atrasos</b> Entende e notifica, ajusta a fila e zera ruído na operação.</div>
+            <div class="feat reveal"><b>Cancelamento inteligente</b> Libera o slot e reengaja a lista de espera automaticamente.</div>
+            <div class="feat reveal"><b>Recrutamento</b> Recebe e qualifica currículos, agenda entrevistas e integra com seu pipeline.</div>
+            <div class="feat reveal"><b>Clube de assinatura</b> Vendas, dúvidas e cancelamentos com regras de negócio e LGPD.</div>
+            <div class="feat reveal"><b>Escalonamento humano</b> Sabe quando chamar alguém e entrega o histórico completo.</div>
+          </div>
         </div>
-
-        <div class="tab-panels">
-            <!-- Pane 1 -->
-            <div id="pane1" role="tabpanel" aria-labelledby="tab1">
-                <div class="grid">
-                    <div class="feat"><b>Agendamento 24/7</b> Marca, confirma e remarca serviços em tempo real com base na agenda de cada profissional.</div>
-                    <div class="feat"><b>Gestão de Atrasos</b> Detecta atrasos e notifica automaticamente o barbeiro, reorganizando a agenda quando necessário.</div>
-                    <div class="feat"><b>Cancelamentos Rápidos</b> Processa cancelamentos e libera horários instantaneamente.</div>
-                    <div class="feat"><b>Captação de Talentos</b> Recebe currículos, realiza triagens iniciais e orienta candidatos para o próximo passo.</div>
-                    <div class="feat"><b>Gestão de Assinaturas</b> Controla planos de fidelidade, incluindo dúvidas e cancelamentos.</div>
-                    <div class="feat"><b>Escalonamento Inteligente</b> Aciona um responsável em casos mais complexos, com histórico completo.</div>
-                </div>
-            </div>
-
-            <!-- Pane 2 -->
-            <div id="pane2" role="tabpanel" aria-labelledby="tab2" hidden>
-                <div class="grid">
-                    <div class="feat"><b>Sincronização com Agenda</b> Integra-se ao Google Calendar e bloqueia horários automaticamente.</div>
-                    <div class="feat"><b>Lembretes Automatizados</b> Envia confirmações e lembretes por WhatsApp ou SMS no dia anterior e no mesmo dia.</div>
-                    <div class="feat"><b>Reengajamento Inteligente</b> Acompanha ausências e oferece novos encaixes ou promoções.</div>
-                    <div class="feat"><b>Relatórios de Performance</b> Visão semanal de agendamentos, faltas e conversões.</div>
-                    <div class="feat"><b>FAQ Automatizado</b> Responde instantaneamente perguntas frequentes como preços, localização e formas de pagamento.</div>
-                    <div class="feat"><b>Aprendizado Contínuo</b> O agente evolui com base no histórico real de interações da sua barbearia.</div>
-                </div>
-            </div>
-
-            <!-- Pane 3 -->
-            <div id="pane3" role="tabpanel" aria-labelledby="tab3" hidden>
-                <div class="grid">
-                    <div class="feat"><b>Teste Agora</b> Simule um agendamento de corte com barba em menos de 1 minuto e veja na prática.</div>
-                    <div class="feat"><b>Entendimento de Contexto</b> Considera preferências de barbeiro, combinações de serviços e tempo estimado.</div>
-                    <div class="feat"><b>Personalidade de Marca</b> Adapte o tom de voz do agente para refletir a identidade da sua barbearia.</div>
-                    <div class="feat"><b>Transferência Suave</b> Transfere para atendimento humano mantendo todo o histórico da conversa.</div>
-                    <div class="feat"><b>Segurança de Dados</b> Conformidade total com a LGPD e melhores práticas em proteção de dados.</div>
-                    <div class="feat"><b>Implantação Rápida</b> Colocamos sua solução no ar em poucas horas, sem burocracia.</div>
-                </div>
-            </div>
+        <div id="pane2" role="tabpanel" aria-labelledby="tab2" hidden>
+          <div class="grid">
+            <div class="feat reveal"><b>Integração de agenda</b> Google Calendar e CRMs. Bloqueios, encaixes e turnos.</div>
+            <div class="feat reveal"><b>Lembretes e confirmações</b> D‑1 / D‑0 via WhatsApp para confirmar ou reagendar.</div>
+            <div class="feat reveal"><b>Follow-up de no‑show</b> Retoma a conversa com oferta e prioridade de encaixe.</div>
+            <div class="feat reveal"><b>Relatórios semanais</b> Agendamentos, taxa de comparecimento, MRR de assinaturas e oportunidades.</div>
+            <div class="feat reveal"><b>FAQ instantâneo</b> Preços, endereço, pagamento e políticas, sempre consistentes.</div>
+            <div class="feat reveal"><b>Aprendizado contínuo</b> Melhora respostas baseado nos atendimentos reais.</div>
+          </div>
         </div>
+        <div id="pane3" role="tabpanel" aria-labelledby="tab3" hidden>
+          <div class="grid">
+            <div class="feat reveal"><b>Teste agora</b> Simule um agendamento (corte + barba) em menos de 60s e veja o fluxo end‑to‑end.</div>
+            <div class="feat reveal"><b>Tom de marca</b> Ajuste a linguagem: formal, descolado ou premium — a voz é sua.</div>
+            <div class="feat reveal"><b>Handoff suave</b> Transfira para humano sem perder contexto.</div>
+            <div class="feat reveal"><b>Privacidade</b> Dados tratados conforme LGPD e boas práticas de segurança.</div>
+            <div class="feat reveal"><b>Onboarding guiado</b> Do zero ao valor em dias, não meses.</div>
+            <div class="feat reveal"><b>Canal preferido</b> WhatsApp — OmniChannel por design.</div>
+          </div>
+        </div>
+      </div>
     </div>
-</section>
+  </section>
 
-<!-- Impacto -->
-<section class="impact" id="impacto" aria-labelledby="title-impacto">
+  <!-- Impacto -->
+  <section class="section impact" id="impacto" aria-labelledby="title-impacto">
     <div class="container">
-        <h2 id="title-impacto" style="text-align:center; margin:0 0 8px">Resultados Visíveis no Primeiro Mês</h2>
-        <p style="text-align:center; color:var(--muted); max-width:820px; margin:0 auto 10px">Reduza tarefas manuais, aumente a produtividade da equipe e mantenha a agenda sempre cheia.</p>
+      <h2 id="title-impacto" style="text-align:center; margin:0 0 8px">Impacto que fecha a conta</h2>
+      <p style="text-align:center; color:#cde4db; max-width:820px; margin:0 auto 10px">Menos trabalho manual, mais comparecimento e experiência premium na cadeira. ROI visível em 30 dias.</p>
 
-        <div class="chart-wrap" role="img" aria-label="Gráfico comparando sem agente de IA vs com agente de IA">
-            <div class="chart">
-                <div class="bars">
-                                        <div class="bar secondary" style="height:70%" title="Trabalho Manual sem IA: 70%"></div>
-                    <div class="bar" style="height:30%" title="Trabalho Manual com IA: 30%"></div>
-                    <div class="bar secondary" style="height:15%" title="Oportunidades Perdidas sem IA: 15%"></div>
-                    <div class="bar" style="height:85%" title="Qualidade do Serviço na Cadeira com IA: 85%"></div>
-                </div>
-                <div class="labels">
-                    <div>Trabalho Manual</div>
-                    <div>Trabalho Manual (com IA)</div>
-                    <div>Oportunidades Perdidas</div>
-                    <div>Qualidade do Serviço</div>
-                </div>
-            </div>
+      <div class="chart-wrap reveal" role="img" aria-label="Gráfico comparando sem IA vs com IA">
+        <div class="chart">
+          <div class="bars">
+            <div class="bar secondary" style="height:10%" title="Trabalho Manual sem IA: 10%"></div>
+            <div class="bar" style="height:60%" title="Trabalho Manual com IA: 60%"></div>
+            <div class="bar secondary" style="height:1%" title="Oportunidades Perdidas sem IA: 1%"></div>
+            <div class="bar" style="height:80%" title="Qualidade do Serviço na Cadeira com IA: 80%"></div>
+          </div>
+          <div class="labels">
+            <div>Trabalho Manual</div>
+            <div>Trabalho (IA)</div>
+            <div>Oportunidades Perdidas</div>
+            <div>Qualidade na Cadeira</div>
+          </div>
         </div>
+      </div>
     </div>
-</section>
+  </section>
 
-<!-- CTA final -->
-<section class="cta-band" aria-labelledby="cta-title">
+  <!-- CTA final -->
+  <section class="cta-band" aria-labelledby="cta-title">
     <div class="wrap">
-        <h2 id="cta-title">Pronto para elevar o padrão de atendimento da sua barbearia?</h2>
-        <p>Automatize o que toma seu tempo e foque no que realmente importa: encantar seus clientes. Comece com uma demonstração gratuita.</p>
-        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap">
-            <a class="btn primary" href="https://wa.me/5555920005470?text=Ol%C3%A1%2C%20gostaria%20de%20testar%20um%20modelo%20de%20atendimento%20para%20minha%20barbearia!">Agendar uma Demonstração Gratuita</a>
-            <a class="btn ghost" href="#top">Voltar ao topo</a>
-        </div>
+      <h2 id="cta-title">Pronto para zerar chamadas perdidas e lotar a agenda?</h2>
+      <p>Conecte seu funil ao caixa com um agente de IA sob medida para sua barbearia.</p>
+      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap">
+        <a class="btn ghost" href="#top">Voltar ao topo</a>
+      </div>
     </div>
-</section>
+  </section>
 
-<footer>
-    © <span id="year"></span> Omniintel Tecnologia LTDA. Todos os direitos reservados.
-</footer>
-
-
-    <script>
-        // Ano dinâmico
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        // Tabs acessíveis
-        const tabs = document.querySelectorAll('.tab-btn');
-        const panes = Array.from(document.querySelectorAll('[role="tabpanel"]'));
-        tabs.forEach((tab) => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.setAttribute('aria-selected', 'false'));
-                panes.forEach(p => p.hidden = true);
-                tab.setAttribute('aria-selected', 'true');
-                const pane = document.getElementById(tab.getAttribute('aria-controls'));
-                pane.hidden = false;
-                pane.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'nearest'
-                });
-            })
-        })
+  <footer>
+    © <span id="year"></span> Omniintel Tecnologia LTDA. Todos os direitos reservados • 
+  </footer>
 
 
-        // Foco visível
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Tab') {
-                document.documentElement.style.setProperty('--ring', '#1f4135');
-            }
-        })
-    </script>
+  <!-- Container do widget n8n (posiciona o toggle no canto da tela) -->
+  <div id="n8n-chat"></div>
+
+  <!-- Scripts -->
+<script type="module">
+  import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+const chat = createChat({
+  webhookUrl: 'https://webhook.cybermindsolutions.com.br/webhook/9e6bb635-3aaf-4bc7-9bf5-4bf527a20741/chat',
+  target: '#n8n-chat',
+  mode: 'window',
+  enableStreaming: false,
+
+    initialMessages: ["Hi there! 👋", "My name is Nathan. How can I assist you today?"],
+  i18n: {
+    en: {
+      title: "Seja Bem Vindo!! 👋",
+      subtitle: "Você está a um passo de automatizar a sua barbearia!💈",
+      footer: "",
+      getStarted: "New Conversation",
+      inputPlaceholder: "Type your question..",
+      closeButtonTooltip: "Close chat"
+    }
+  },
+      initialMessages: [
+      "👋 Olá! Sou Atlas, o agente virtual da Omniintel.",
+      "Eu vou te ajudar com os proximos passos. Por onde podemos começar?"
+    ],
+
+    placeholder: "Digite sua mensagem aqui..."
+  });
+
+    // ===== Ano dinâmico =====
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ===== Tabs acessíveis =====
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panes = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+    tabs.forEach((tab)=>{
+      tab.addEventListener('click',()=>{
+        tabs.forEach(t=>t.setAttribute('aria-selected','false'));
+        panes.forEach(p=>p.hidden = true);
+        tab.setAttribute('aria-selected','true');
+        document.getElementById(tab.getAttribute('aria-controls')).hidden = false;
+      })
+    });
+
+    // ===== Lightbox vídeo =====
+    const lb = document.querySelector('.lightbox');
+    const closeBtn = document.querySelector('[data-close-video]');
+    function openLB(){ lb.classList.add('open'); lb.hidden=false; }
+    function closeLB(){ lb.classList.remove('open'); lb.hidden=true; }
+    closeBtn?.addEventListener('click', closeLB);
+    lb?.addEventListener('click', (e)=>{ if(e.target===lb) closeLB(); });
+
+    // ===== Scroll reveal 3D =====
+    const io = new IntersectionObserver((entries)=>{
+      for(const e of entries){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }
+    }, {threshold:.15});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // ===== Tilt leve nos cards =====
+    document.querySelectorAll('.card').forEach((card)=>{
+      card.addEventListener('pointermove', (e)=>{
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left)/r.width - .5;
+        const y = (e.clientY - r.top)/r.height - .5;
+        card.style.transform = `translateY(-4px) rotateX(${(-y*6).toFixed(2)}deg) rotateY(${(x*6).toFixed(2)}deg)`;
+      });
+      card.addEventListener('pointerleave', ()=>{ card.style.transform=''; });
+    });
+
+    // ===== Chips: randomiza início e delay via JS =====
+    (function seedChips(){
+      const chips = document.querySelectorAll('.chip');
+      chips.forEach((c,i)=>{
+        c.style.left = `${20 + i*30}%`;
+        c.style.animationDelay = `${i*3}s`;
+        c.style.bottom = '-55px';
+      });
+    })();
+
+    // CTAs que chamam o chat
+    document.getElementById('cta-open-chat')?.addEventListener('click', focusChat);
+    document.getElementById('cta-open-chat-2')?.addEventListener('click', focusChat);
+
+    // Respeita usuários que preferem menos movimento
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      document.querySelectorAll('.chip').forEach(c=>c.style.animation='none');
+    }
+  </script>
 </body>
-
 </html>
