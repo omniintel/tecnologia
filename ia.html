@@ -395,22 +395,53 @@ const chat = createChat({
 
   // Conexão Supabase
   const supabaseUrl = "https://hgxuakniyncpbuvksiql.supabase.co";
-  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhneHVha25peW5jcGJ1dmtzaXFsIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0ODcyNTA2MCwiZXhwIjoyMDY0MzAxMDYwfQ.PqFYkPC-87s3regeKRhfMsZi9t_at-LxQTP23RGOyEo"; // Use a anon key
+  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhneHVha25peW5jcGJ1dmtzaXFsIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0ODcyNTA2MCwiZXhwIjoyMDY0MzAxMDYwfQ.PqFYkPC-87s3regeKRhfMsZi9t_at-LxQTP23RGOyEo"; // anon key do Supabase
   const supabase = createClient(supabaseUrl, supabaseKey);
 
   // Variáveis de captura
   let startTime = Date.now();
   let maxScroll = 0;
   let clickCount = 0;
-
-  // Região via API pública
+  let recordId = null;
   let region = "Desconhecida";
+
+  // Capturar região via API pública
   fetch("https://ipapi.co/json/")
     .then(res => res.json())
     .then(data => {
       region = data.country_name + " - " + data.region;
+      createRecord(); // cria o registro inicial já com a região
     })
-    .catch(() => { region = "Erro ao capturar"; });
+    .catch(() => {
+      createRecord(); // cria mesmo se não conseguir pegar a região
+    });
+
+  // Criar registro vazio no Supabase
+  async function createRecord() {
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+
+    const { data, error } = await supabase
+      .from("user_metrics")
+      .insert([{
+        region: region,
+        time_on_page: 0,
+        scroll_percentage: 0,
+        screen_width: screenWidth,
+        screen_height: screenHeight,
+        clicks: 0
+      }])
+      .select("id")
+      .single();
+
+    if (error) {
+      console.error("Erro ao criar registro:", error);
+    } else {
+      recordId = data.id;
+      console.log("Registro criado:", recordId);
+      startUpdating();
+    }
+  }
 
   // Monitorar rolagem
   window.addEventListener("scroll", () => {
@@ -425,22 +456,27 @@ const chat = createChat({
     clickCount++;
   });
 
-  // Antes de sair da página
-  window.addEventListener("beforeunload", async () => {
-    const timeOnPage = Math.round((Date.now() - startTime) / 1000);
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
+  // Atualizar em tempo real
+  function startUpdating() {
+    setInterval(async () => {
+      if (!recordId) return;
 
-    await supabase.from("user_metrics").insert([{
-      region: region,
-      time_on_page: timeOnPage,
-      scroll_percentage: maxScroll.toFixed(2),
-      screen_width: screenWidth,
-      screen_height: screenHeight,
-      clicks: clickCount
-    }]);
-  });
+      const timeOnPage = Math.round((Date.now() - startTime) / 1000);
+
+      const { error } = await supabase
+        .from("user_metrics")
+        .update({
+          time_on_page: timeOnPage,
+          scroll_percentage: maxScroll.toFixed(2),
+          clicks: clickCount
+        })
+        .eq("id", recordId);
+
+      if (error) console.error("Erro ao atualizar registro:", error);
+    }, 1000); // atualiza a cada 5s
+  }
 </script>
+
 
 </body>
 </html>
