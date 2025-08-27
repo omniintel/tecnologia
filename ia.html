@@ -283,16 +283,15 @@
   </section>
 
   <!-- CTA final -->
-  <section class="cta-band" aria-labelledby="cta-title">
-    <div class="wrap">
-      <h2 id="cta-title">Pronto para zerar chamadas perdidas e lotar a agenda?</h2>
-      <p>Conecte seu funil ao caixa com um agente de IA sob medida para sua barbearia.</p>
-      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap">
-        <a class="btn ghost" href="#top">Voltar ao topo</a>
-      </div>
+<section class="cta-band" aria-labelledby="cta-title" style="background-image: url('https://www.shutterstock.com/image-photo/empty-wooden-tabletop-product-display-600nw-2374648881.jpg'); background-size: cover; background-position: center; background-blend-mode: overlay;">
+  <div class="wrap">
+    <h2 id="cta-title">Pronto para zerar chamadas perdidas e lotar a agenda?</h2>
+    <p>Conecte seu funil ao caixa com um agente de IA sob medida para sua barbearia.</p>
+    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap">
+      <a class="btn ghost" href="#top">Voltar ao topo</a>
     </div>
-  </section>
-
+  </div>
+</section>
   <footer>
     © <span id="year"></span> Omniintel Tecnologia LTDA. Todos os direitos reservados • 
   </footer>
@@ -389,5 +388,59 @@ const chat = createChat({
       document.querySelectorAll('.chip').forEach(c=>c.style.animation='none');
     }
   </script>
+
+
+<script type="module">
+  import { createClient } from "https://esm.sh/@supabase/supabase-js";
+
+  // Conexão Supabase
+  const supabaseUrl = "https://hgxuakniyncpbuvksiql.supabase.co";
+  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhneHVha25peW5jcGJ1dmtzaXFsIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0ODcyNTA2MCwiZXhwIjoyMDY0MzAxMDYwfQ.PqFYkPC-87s3regeKRhfMsZi9t_at-LxQTP23RGOyEo"; // Use a anon key
+  const supabase = createClient(supabaseUrl, supabaseKey);
+
+  // Variáveis de captura
+  let startTime = Date.now();
+  let maxScroll = 0;
+  let clickCount = 0;
+
+  // Região via API pública
+  let region = "Desconhecida";
+  fetch("https://ipapi.co/json/")
+    .then(res => res.json())
+    .then(data => {
+      region = data.country_name + " - " + data.region;
+    })
+    .catch(() => { region = "Erro ao capturar"; });
+
+  // Monitorar rolagem
+  window.addEventListener("scroll", () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrolled = (scrollTop / docHeight) * 100;
+    if (scrolled > maxScroll) maxScroll = scrolled;
+  });
+
+  // Monitorar cliques
+  window.addEventListener("click", () => {
+    clickCount++;
+  });
+
+  // Antes de sair da página
+  window.addEventListener("beforeunload", async () => {
+    const timeOnPage = Math.round((Date.now() - startTime) / 1000);
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+
+    await supabase.from("user_metrics").insert([{
+      region: region,
+      time_on_page: timeOnPage,
+      scroll_percentage: maxScroll.toFixed(2),
+      screen_width: screenWidth,
+      screen_height: screenHeight,
+      clicks: clickCount
+    }]);
+  });
+</script>
+
 </body>
 </html>
