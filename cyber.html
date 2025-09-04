@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Mind Solutions - Inovação Tecnológica</title>
+    <meta name="description" content="Cyber Mind Solutions - Transformando o futuro com tecnologia de ponta. Desenvolvimento web, IA, automação e soluções digitais inovadoras.">
+    <link rel="stylesheet" href="sass/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="cyber-logo">
+                <div class="logo-hexagon"></div>
+                <div class="logo-text">CYBER MIND</div>
+            </div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="logo-icon">
+                    <div class="hexagon"></div>
+                    <span class="logo-text">CYBER MIND</span>
+                </div>
+            </div>
+            
+                                <div class="nav-menu" id="navMenu">
+                        <a href="#home" class="nav-link">Home</a>
+                        <a href="#services" class="nav-link">Serviços</a>
+                        <a href="#consulting" class="nav-link">Consultoria</a>
+                        <a href="#solutions" class="nav-link">Soluções</a>
+                        <a href="#about" class="nav-link">Sobre</a>
+                        <a href="#technologies" class="nav-link">Tecnologias</a>
+                        <a href="#process" class="nav-link">Processo</a>
+                        <a href="#contact" class="nav-link">Contato</a>
+                    </div>
+            
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <!-- Menu Mobile -->
+        <div class="mobile-menu" id="mobileMenu">
+            <button class="mobile-close" id="mobileClose">
+                <i class="bi bi-x-lg"></i>
+            </button>
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#services" class="nav-link">Serviços</a>
+            <a href="#consulting" class="nav-link">Consultoria</a>
+            <a href="#solutions" class="nav-link">Soluções</a>
+            <a href="#about" class="nav-link">Sobre</a>
+            <a href="#technologies" class="nav-link">Tecnologias</a>
+            <a href="#process" class="nav-link">Processo</a>
+            <a href="#contact" class="nav-link">Contato</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-background">
+                <div class="cyber-grid"></div>
+                <div class="floating-particles"></div>
+            </div>
+            
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="title-line">CONSTRUINDO</span>
+                        <span class="title-line highlight">O FUTURO</span>
+                        <span class="title-line">COM TECNOLOGIA</span>
+                    </h1>
+                    <p class="hero-description">
+                        Consultoria especializada em Inteligência Artificial, desenvolvimento de automação e aplicativos inteligentes. 
+                        Uma nova era de sistemas inteligentes que transformam negócios.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#contact" class="btn btn-primary">
+                            <span>Iniciar Projeto</span>
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                        <a href="#services" class="btn btn-secondary">
+                            <span>Explorar Serviços</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="hero-visual">
+                    <div class="cyber-brain">
+                        <div class="brain-core"></div>
+                        <div class="brain-connections"></div>
+                        <div class="brain-pulse"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="scroll-indicator">
+                <div class="scroll-arrow"></div>
+                <span>Scroll para explorar</span>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-prefix">CONSULTORIA</span>
+                        <span class="title-main">ESPECIALIZADA</span>
+                    </h2>
+                    <p class="section-subtitle">Soluções inteligentes para transformar seu negócio com IA e automação</p>
+                </div>
+                
+                <div class="services-grid">
+                    <div class="service-card" data-aos="fade-up">
+                        <div class="service-icon">
+                            <i class="bi bi-brain"></i>
+                        </div>
+                        <h3>Consultoria em IA</h3>
+                        <p>Estratégias personalizadas de implementação de inteligência artificial para otimizar processos e aumentar a eficiência operacional.</p>
+                        <div class="tech-stack">
+                            <span>Machine Learning</span>
+                            <span>Deep Learning</span>
+                            <span>NLP</span>
+                            <span>Computer Vision</span>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="service-icon">
+                            <i class="bi bi-robot"></i>
+                        </div>
+                        <h3>Automação Inteligente</h3>
+                        <p>Desenvolvimento de sistemas de automação baseados em IA para processos repetitivos e tomada de decisões inteligentes.</p>
+                        <div class="tech-stack">
+                            <span>RPA</span>
+                            <span>Workflow Automation</span>
+                            <span>Process Mining</span>
+                            <span>Smart Bots</span>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="service-icon">
+                            <i class="bi bi-phone"></i>
+                        </div>
+                        <h3>Apps Inteligentes</h3>
+                        <p>Aplicativos mobile e web com funcionalidades de IA integradas para uma experiência de usuário revolucionária.</p>
+                        <div class="tech-stack">
+                            <span>React Native</span>
+                            <span>Flutter</span>
+                            <span>AI APIs</span>
+                            <span>Cloud Integration</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Consulting Section -->
+        <section id="consulting" class="consulting">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-prefix">CONSULTORIA</span>
+                        <span class="title-main">ESPECIALIZADA</span>
+                    </h2>
+                    <p class="section-subtitle">Transformamos sua empresa com estratégias de IA e automação personalizadas</p>
+                </div>
+                
+                <div class="consulting-content">
+                    <div class="consulting-text" data-aos="fade-right">
+                        <h3>Consultoria Estratégica em IA</h3>
+                        <p>Nossa equipe de especialistas oferece consultoria completa para implementação de soluções de inteligência artificial e automação.</p>
+                        
+                        <div class="consulting-areas">
+                            <div class="area-item">
+                                <i class="bi bi-lightbulb"></i>
+                                <div>
+                                    <h4>Análise de Viabilidade</h4>
+                                    <p>Avaliamos a implementação de IA em seus processos atuais</p>
+                                </div>
+                            </div>
+                            
+                            <div class="area-item">
+                                <i class="bi bi-diagram-3"></i>
+                                <div>
+                                    <h4>Arquitetura de Soluções</h4>
+                                    <p>Desenhamos a estrutura técnica ideal para suas necessidades</p>
+                                </div>
+                            </div>
+                            
+                            <div class="area-item">
+                                <i class="bi bi-rocket-takeoff"></i>
+                                <div>
+                                    <h4>Implementação e Treinamento</h4>
+                                    <p>Executamos o projeto e capacitamos sua equipe</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="consulting-cta">
+                            <a href="#contact" class="btn btn-primary">
+                                <span>Solicitar Consultoria</span>
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="consulting-stats" data-aos="fade-left">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="bi bi-graph-up"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h4>85%</h4>
+                                <p>Melhoria na eficiência operacional</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="bi bi-clock"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h4>60%</h4>
+                                <p>Redução no tempo de processos</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="bi bi-currency-dollar"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h4>40%</h4>
+                                <p>Economia em custos operacionais</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solutions Section -->
+        <section id="solutions" class="solutions">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-prefix">NOSSAS</span>
+                        <span class="title-main">SOLUÇÕES</span>
+                    </h2>
+                    <p class="section-subtitle">Explore os produtos SaaS inovadores desenvolvidos pela CyberMind para otimizar seu negócio.</p>
+                </div>
+                
+                <div class="solutions-grid">
+                    <div class="solution-card" data-aos="fade-up">
+                        <div class="solution-icon">
+                            <i class="bi bi-graph-up-arrow"></i>
+                        </div>
+                        <h3>CyberAnalytics</h3>
+                        <p>Plataforma completa de análise de dados com IA para insights preditivos, relatórios automatizados e tomada de decisões estratégicas baseadas em dados.</p>
+                        <div class="solution-features">
+                            <span>Análise Preditiva</span>
+                            <span>Dashboards Inteligentes</span>
+                            <span>Business Intelligence</span>
+                        </div>
+                        <div class="solution-links">
+                            <a href="#" class="btn btn-primary">Demo</a>
+
+                        </div>
+                    </div>
+                    
+                    <div class="solution-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="solution-icon">
+                            <i class="bi bi-code-slash"></i>
+                        </div>
+                        <h3>Desenvolvimento e Integração de Plataformas</h3>
+                        <p>Integração e desenvolvimento de ERPs, CRMs, gateways de pagamento e outras plataformas essenciais para seu negócio.</p>
+                        <div class="solution-features">
+                            <span>ERPs Personalizados</span>
+                            <span>CRMs Integrados</span>
+                            <span>Gateways de Pagamento</span>
+                        </div>
+                        <div class="solution-links">
+                            <a href="#" class="btn btn-primary">Saiba Mais</a>
+                        </div>
+                    </div>
+                    
+                    <div class="solution-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="solution-icon">
+                            <i class="bi bi-gear-wide-connected"></i>
+                        </div>
+                        <h3>CyberAutomation</h3>
+                        <p>Solução avançada de automação de processos empresariais com IA integrada para otimização de fluxos de trabalho e redução de custos operacionais.</p>
+                        <div class="solution-features">
+                            <span>Workflow Automation</span>
+                            <span>Smart Bots</span>
+                            <span>RPA Inteligente</span>
+                        </div>
+                        <div class="solution-links">
+                            <a href="#" class="btn btn-primary">Demo</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text" data-aos="fade-right">
+                        <h2 class="about-title">
+                            <span class="title-line">INOVADOR</span>
+                            <span class="title-line highlight">TECNOLÓGICO</span>
+                        </h2>
+                        <p class="about-description">
+                            Sou John Santos, um desenvolvedor apaixonado por tecnologia e inovação. 
+                            Especializado em criar soluções digitais que transformam ideias em realidade.
+                        </p>
+                        <div class="about-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">50+</span>
+                                <span class="stat-label">Projetos Concluídos</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">3+</span>
+                                <span class="stat-label">Anos de Experiência</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">100%</span>
+                                <span class="stat-label">Satisfação do Cliente</span>
+                            </div>
+                        </div>
+                        <div class="about-skills">
+                            <div class="skill-tag">Python</div>
+                            <div class="skill-tag">JavaScript</div>
+                            <div class="skill-tag">React</div>
+                            <div class="skill-tag">Node.js</div>
+                            <div class="skill-tag">Machine Learning</div>
+                            <div class="skill-tag">Cloud Computing</div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-visual" data-aos="fade-left">
+                        <div class="profile-container">
+                            <div class="profile-image">
+                                <img src="assets/images/ILUSTRATOR.png" alt="John Santos - Desenvolvedor">
+                            </div>
+                            <div class="profile-glow"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Apps Section -->
+        <section id="apps" class="apps">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-prefix">APPS</span>
+                        <span class="title-main">MOBILE</span>
+                    </h2>
+                    <p class="section-subtitle">Aplicativos nativos e híbridos que revolucionam a experiência mobile</p>
+            </div>
+
+                <div class="apps-content">
+                    <div class="apps-text" data-aos="fade-right">
+                        <h3>Desenvolvimento Mobile de Ponta</h3>
+                        <p>Criamos aplicativos que se destacam na App Store e Google Play, com foco em:</p>
+                        <ul class="apps-features">
+                            <li><i class="bi bi-check-circle"></i> Design intuitivo e responsivo</li>
+                            <li><i class="bi bi-check-circle"></i> Performance otimizada para cada plataforma</li>
+                            <li><i class="bi bi-check-circle"></i> Integração com APIs e serviços cloud</li>
+                            <li><i class="bi bi-check-circle"></i> Segurança e conformidade com padrões</li>
+                            <li><i class="bi bi-check-circle"></i> Manutenção e atualizações contínuas</li>
+                        </ul>
+                        <div class="apps-tech">
+                            <h4>Tecnologias Utilizadas:</h4>
+                            <div class="tech-tags">
+                                <span>React Native</span>
+                                <span>Flutter</span>
+                                <span>Swift</span>
+                                <span>Kotlin</span>
+                                <span>Firebase</span>
+                            </div>
+                        </div>
+        </div>
+                    
+                    <div class="apps-visual" data-aos="fade-left">
+                        <div class="mobile-devices">
+                            <div class="phone phone-1">
+                                <div class="screen"></div>
+                            </div>
+                            <div class="phone phone-2">
+                                <div class="screen"></div>
+                            </div>
+                            <div class="tablet">
+                                <div class="screen"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Section -->
+        <section id="ai" class="ai">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-prefix">INTELIGÊNCIA</span>
+                        <span class="title-main">ARTIFICIAL</span>
+                    </h2>
+                    <p class="section-subtitle">Soluções inteligentes que transformam dados em insights valiosos</p>
+                </div>
+                
+                <div class="ai-content">
+                    <div class="ai-visual" data-aos="fade-right">
+                        <div class="ai-brain">
+                            <div class="neural-network">
+                                <div class="node node-1"></div>
+                                <div class="node node-2"></div>
+                                <div class="node node-3"></div>
+                                <div class="node node-4"></div>
+                                <div class="node node-5"></div>
+                                <div class="connection connection-1"></div>
+                                <div class="connection connection-2"></div>
+                                <div class="connection connection-3"></div>
+                                <div class="connection connection-4"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ai-text" data-aos="fade-left">
+                        <h3>IA para Transformação Digital</h3>
+                        <p>Implementamos soluções de inteligência artificial que:</p>
+                        <ul class="ai-features">
+                            <li><i class="bi bi-robot"></i> Automatizam processos complexos</li>
+                            <li><i class="bi bi-graph-up"></i> Analisam dados em tempo real</li>
+                            <li><i class="bi bi-chat-dots"></i> Criam chatbots inteligentes</li>
+                            <li><i class="bi bi-eye"></i> Implementam visão computacional</li>
+                            <li><i class="bi bi-lightbulb"></i> Geram insights preditivos</li>
+                        </ul>
+                        <div class="ai-applications">
+                            <h4>Aplicações:</h4>
+                            <div class="app-tags">
+                                <span>Machine Learning</span>
+                                <span>Deep Learning</span>
+                                <span>NLP</span>
+                                <span>Computer Vision</span>
+                                <span>Predictive Analytics</span>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technologies Section -->
+        <section id="technologies" class="technologies">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-prefix">NOSSAS</span>
+                        <span class="title-main">TECNOLOGIAS</span>
+                    </h2>
+                    <p class="section-subtitle">Stack tecnológica moderna e robusta para projetos de alta qualidade</p>
+                    </div>
+
+                <div class="tech-categories">
+                    <div class="tech-category" data-aos="fade-up">
+                        <h3><i class="bi bi-code-slash"></i> Frontend</h3>
+                        <div class="tech-grid">
+                            <div class="tech-item">
+                                <i class="bi bi-filetype-js"></i>
+                                <span>JavaScript</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="bi bi-filetype-tsx"></i>
+                                <span>TypeScript</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="bi bi-braces"></i>
+                                <span>React</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="bi bi-braces-asterisk"></i>
+                                <span>Vue.js</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="bi bi-bootstrap"></i>
+                                <span>Bootstrap</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="bi bi-palette"></i>
+                                <span>Tailwind CSS</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tech-category" data-aos="fade-up" data-aos-delay="100">
+                        <h3><i class="bi bi-server"></i> Backend</h3>
+                        <div class="tech-grid">
+                            <div class="tech-item">
+                                <i class="bi bi-filetype-py"></i>
+                                <span>Python</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="bi bi-filetype-js"></i>
+                                <span>Node.js</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="bi bi-database"></i>
+                                <span>PostgreSQL</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="bi bi-database-fill"></i>
+                                <span>MongoDB</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="bi bi-gear-wide-connected"></i>
+                                <span>FastAPI</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="bi bi-lightning"></i>
+                                <span>Express.js</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tech-category" data-aos="fade-up" data-aos-delay="200">
+                        <h3><i class="bi bi-phone"></i> Mobile & IA</h3>
+                        <div class="tech-grid">
+                            <div class="tech-item">
+                                <i class="bi bi-phone"></i>
+                                <span>React Native</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="bi bi-phone-flip"></i>
+                                <span>Flutter</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="bi bi-robot"></i>
+                                <span>TensorFlow</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="bi bi-brain"></i>
+                                <span>PyTorch</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="bi bi-cloud"></i>
+                                <span>Firebase</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="bi bi-graph-up"></i>
+                                <span>Scikit-learn</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Automation Section -->
+        <section id="automation" class="automation">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-prefix">AUTOMAÇÃO</span>
+                        <span class="title-main">INTELIGENTE</span>
+                    </h2>
+                    <p class="section-subtitle">Otimize processos e aumente a eficiência com automação avançada</p>
+                    </div>
+
+                <div class="automation-content">
+                    <div class="automation-text" data-aos="fade-right">
+                        <h3>Automação que Transforma Negócios</h3>
+                        <p>Desenvolvemos soluções de automação que:</p>
+                        <ul class="automation-features">
+                            <li><i class="bi bi-gear-wide-connected"></i> Eliminam tarefas repetitivas</li>
+                            <li><i class="bi bi-arrow-repeat"></i> Integram sistemas heterogêneos</li>
+                            <li><i class="bi bi-speedometer2"></i> Aumentam a produtividade</li>
+                            <li><i class="bi bi-shield-check"></i> Reduzem erros humanos</li>
+                            <li><i class="bi bi-graph-up-arrow"></i> Melhoram a tomada de decisão</li>
+                        </ul>
+                        <div class="automation-tools">
+                            <h4>Ferramentas e Tecnologias:</h4>
+                            <div class="tool-tags">
+                                <span>RPA</span>
+                                <span>APIs</span>
+                                <span>Python</span>
+                                <span>Zapier</span>
+                                <span>Webhooks</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="automation-visual" data-aos="fade-left">
+                        <div class="automation-flow">
+                            <div class="flow-step step-1">
+                                <i class="bi bi-database"></i>
+                                <span>Dados</span>
+                            </div>
+                            <div class="flow-arrow"></div>
+                            <div class="flow-step step-2">
+                                <i class="bi bi-cpu"></i>
+                                <span>Processamento</span>
+                            </div>
+                            <div class="flow-arrow"></div>
+                            <div class="flow-step step-3">
+                                <i class="bi bi-check-circle"></i>
+                                <span>Resultado</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Work Process Section -->
+        <section id="process" class="process">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-prefix">NOSSO</span>
+                        <span class="title-main">PROCESSO</span>
+                    </h2>
+                    <p class="section-subtitle">Metodologia ágil e transparente para entregar projetos com excelência</p>
+                </div>
+                
+                <div class="process-steps">
+                    <div class="process-step" data-aos="fade-up">
+                        <div class="step-number">01</div>
+                        <div class="step-icon">
+                            <i class="bi bi-lightbulb"></i>
+                        </div>
+                        <h3>Descoberta</h3>
+                        <p>Análise profunda das necessidades, objetivos e requisitos do projeto</p>
+                        <ul>
+                            <li>Briefing detalhado</li>
+                            <li>Análise de mercado</li>
+                            <li>Definição de escopo</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="process-step" data-aos="fade-up" data-aos-delay="100">
+                        <div class="step-number">02</div>
+                        <div class="step-icon">
+                            <i class="bi bi-pencil-square"></i>
+                        </div>
+                        <h3>Planejamento</h3>
+                        <p>Estruturação da arquitetura técnica e cronograma de desenvolvimento</p>
+                        <ul>
+                            <li>Arquitetura do sistema</li>
+                            <li>Cronograma detalhado</li>
+                            <li>Seleção de tecnologias</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="process-step" data-aos="fade-up" data-aos-delay="200">
+                        <div class="step-number">03</div>
+                        <div class="step-icon">
+                            <i class="bi bi-code-slash"></i>
+                        </div>
+                        <h3>Desenvolvimento</h3>
+                        <p>Implementação ágil com entregas incrementais e feedback contínuo</p>
+                        <ul>
+                            <li>Desenvolvimento iterativo</li>
+                            <li>Testes contínuos</li>
+                            <li>Feedback do cliente</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="process-step" data-aos="fade-up" data-aos-delay="300">
+                        <div class="step-number">04</div>
+                        <div class="step-icon">
+                            <i class="bi bi-rocket-takeoff"></i>
+                    </div>
+                        <h3>Entrega</h3>
+                        <p>Deploy em produção com suporte pós-lançamento e manutenção</p>
+                        <ul>
+                            <li>Deploy em produção</li>
+                            <li>Treinamento da equipe</li>
+                            <li>Suporte contínuo</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+
+        <!-- CTA Section -->
+        <section id="cta" class="cta">
+            <div class="container">
+                <div class="cta-content" data-aos="zoom-in">
+                    <h2>Pronto para Transformar seu Negócio?</h2>
+                    <p>Vamos criar algo incrível juntos! Entre em contato e vamos discutir como podemos impulsionar sua presença digital com tecnologia de ponta.</p>
+                    <div class="cta-buttons">
+                        <a href="#contact" class="btn btn-primary">
+                            <span>Iniciar Projeto</span>
+                            <i class="bi bi-rocket-takeoff"></i>
+                        </a>
+                        <a href="contato.html" class="btn btn-secondary">
+                            <span>Falar com Especialista</span>
+                            <i class="bi bi-chat-dots"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-prefix">VAMOS</span>
+                        <span class="title-main">CONVERSAR</span>
+                    </h2>
+                    <p class="section-subtitle">Pronto para transformar sua ideia em realidade? Entre em contato!</p>
+                </div>
+                
+                <div class="contact-content">
+                    <div class="contact-info" data-aos="fade-right">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="bi bi-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Email</h4>
+                                <p>joao0206@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="bi bi-whatsapp"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>WhatsApp</h4>
+                                <p>+55 (41) 96143-3388</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="bi bi-geo-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Localização</h4>
+                                <p>Campo Largo, PR - Brasil</p>
+                            </div>
+                        </div>
+                        
+                        <div class="social-links">
+                            <a href="https://www.instagram.com/gabrielsantos_369/" class="social-link">
+                                <i class="bi bi-instagram"></i>
+                            </a>
+                            <a href="https://www.youtube.com/@sejamestre-sm8298/videos" class="social-link">
+                                <i class="bi bi-youtube"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/jo%C3%A3o-gabriel-oliveira-santos-b3780a176/" class="social-link">
+                                <i class="bi bi-linkedin"></i>
+                            </a>
+                            <a href="https://api.whatsapp.com/send/?phone=554196143338&text&type=phone_number&app_absent=0" class="social-link">
+                                <i class="bi bi-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form" data-aos="fade-left">
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <input type="text" id="name" name="name" required>
+                                <label for="name">Nome Completo</label>
+                                <div class="form-line"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="email" id="email" name="email" required>
+                                <label for="email">Email</label>
+                                <div class="form-line"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="tel" id="phone" name="phone" required>
+                                <label for="phone">Telefone</label>
+                                <div class="form-line"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <textarea id="message" name="message" rows="5" required></textarea>
+                                <label for="message">Mensagem</label>
+                                <div class="form-line"></div>
+                        </div>
+                            
+                            <button type="submit" class="btn btn-primary">
+                                <span>Enviar Mensagem</span>
+                                <i class="bi bi-send"></i>
+                            </button>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="logo-icon">
+                        <div class="hexagon"></div>
+                        <span class="logo-text">CYBER MIND</span>
+                    </div>
+                    <p>Transformando o futuro com tecnologia</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Serviços</h4>
+                        <ul>
+                            <li><a href="#services">Serviços</a></li>
+                            <li><a href="#consulting">Consultoria</a></li>
+                            <li><a href="#solutions">Soluções</a></li>
+                            <li><a href="#technologies">Tecnologias</a></li>
+                            <li><a href="#process">Processo</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Empresa</h4>
+                        <ul>
+                            <li><a href="#about">Sobre Nós</a></li>
+                            <li><a href="#contact">Contato</a></li>
+                            <li><a href="contato.html">Orçamento</a></li>
+                        </ul>
+                    </div> 
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Cyber Mind Solutions. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
+
